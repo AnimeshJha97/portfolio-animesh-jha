@@ -20,118 +20,170 @@ interface SectionRefs {
 const projectData = [
   {
     id: "project1",
-    name: "The Review Roundup",
-    company: "Personal Project",
+    name: "Overtime Management Platform",
+    company: "Veritas Prime",
     points: [
-      "A review platform for Movies, TV Series, Cafes, Destinations, Live Shows and Books.",
+      "Architected a multi-tenant overtime management SaaS platform supporting global enterprise workforce operations.",
+      "Designed tenant isolation using a primary configuration database and tenant-specific databases.",
+      "Implemented SAP SuccessFactors SSO integration, tenant identification, and dynamic database connection logic.",
+      "Built a configurable approval workflow engine supporting multi-level approvals and role-based access for HR, Managers, Approvers, and Admins.",
+      "Designed synchronization pipelines with daily employee sync jobs and 6-hour overtime sync jobs for multi-timezone workforces.",
+      "Optimized large-scale data loads using pagination, batching, cron-based schedulers, and MongoDB indexing.",
     ],
-    features: [
-      "Authentication, Login and Signup",
-      "Go through community reviews, submit reviews, like and dislike reviews.",
-      "Watch description for all the modules, i.e., Movies, TV Series, etc.",
-    ],
+    features: [],
     skills: [
-      "Next.js v13",
-      "Typescript",
+      "React",
       "Node.js",
-      "TailwindCSS",
-      "Express.js",
-      "Webpack",
+      "MongoDB",
+      "SuccessFactors",
+      "Workflow Engine",
+      "Multi-tenant Architecture",
     ],
   },
   {
     id: "project2",
-    name: "Account Growth and Forecasting Platform",
-    company: "Next Quarter",
+    name: "Prime Time Tracking Mobile Application",
+    company: "Veritas Prime",
     points: [
-      "Developed a platform aimed at driving growth and achieving predictable forecasts for companies through the utilization of account planning, sales methodologies, data-driven forecasts, and conversational AI.",
-      "Integrated React.js and Material UI with the Salesforce platform to enhance the platform's user interface and functionality.",
-      "Collaborated closely with the Salesforce Backend team and QA team to integrate new features and make necessary enhancements to the platform.",
-      "Utilized the Balkan Org Chart library along with React.js to create an elegant, flexible, and customizable organization chart for presenting structural data.",
-      "Successfully integrated the Balkan Org Chart library with React.js and implemented various business logics to ensure smooth functionality and a seamless user experience.",
+      "Led development of an enterprise employee time tracking mobile application.",
+      "Designed offline clock-in and clock-out functionality for remote workforce scenarios.",
+      "Implemented multi-tenant architecture supporting multiple organizations.",
+      "Managed the full development lifecycle from architecture to deployment.",
+      "Coordinated directly with enterprise clients and offshore teams, with successful deployment to the Apple App Store and Google Play Store.",
     ],
     features: [],
     skills: [
-      "React.js",
-      "Material UI",
-      "HighCharts",
-      "Webpack",
-      "Jira",
-      "Github",
-      "Balkan Org Chart",
+      "React Native",
+      "Node.js",
+      "SuccessFactors API",
+      "Multi-tenant Architecture",
+      "Mobile Release Management",
     ],
   },
   {
     id: "project3",
-    name: "Lending Database Query Management System",
-    company: "Trustt (formerly Novopay)",
+    name: "eCalibration Platform",
+    company: "Veritas Prime",
     points: [
-      "Query Management System for customer support to ease with managing the data of loan customers based on query input.",
-      "Added query search feature not provided by Appwrite in Appwrite DB dashboard.",
+      "Developed a performance review calibration platform for enterprise HR processes.",
+      "Enabled managers to standardize employee performance ratings with configurable rating structures.",
+      "Integrated SAP SuccessFactors data pipelines and implemented live chat with text and voice messaging.",
     ],
     skills: [
-      "Next.js",
-      "TailwindCSS",
-      "Appwrite",
+      "SAPUI5",
       "Node.js",
-      "Express.js",
-      "REST API",
-      "Recoil - State Management Tool",
+      "SuccessFactors API",
+      "Enterprise HR Systems",
     ],
   },
   {
     id: "project4",
-    name: "Loan Agent Portal",
-    company: "Trustt (formerly Novopay)",
+    name: "Mass Changes Platform",
+    company: "Veritas Prime",
     points: [
-      "Web Application for Novopay's Loan Distributer Agent to manage their data and data of loan customers linked.",
-      "Features: View details of Leads, Borrowers, detailed commission details and generating new Leads.",
+      "Contributed to a large-scale HR data management platform handling 100K+ employees and 30K+ managers during peak review cycles.",
+      "Optimized backend performance by rewriting complex SQL queries and implementing indexing strategies to improve execution time.",
+      "Refactored backend and frontend code to reduce latency and improve high-traffic performance.",
+      "Introduced stress testing practices to identify bottlenecks under peak enterprise workloads.",
+      "Improved platform scalability with SAP BTP infrastructure, including multi-instance deployment, load balancing, and stronger data synchronization handling.",
+      "Built internal admin dashboards and helped stabilize monthly peak usage periods.",
     ],
-    features: [
-      "View details of Leads & Borrowers",
-      "View detailed commission details",
-      "Generate new Leads",
-    ],
+    features: [],
     skills: [
-      "Next.js",
-      "TailwindCSS",
-      "Appwrite",
-      "Strapi.io CMS",
-      "BudiBase",
-      "Recoil - State Management Tool",
+      "React",
+      "Node",
+      "MySQL",
+      "SAP BTP",
+      "Performance Optimization",
+      "Stress Testing",
     ],
   },
   {
     id: "project5",
-    name: "Lending and Retailer Website",
-    company: "Trustt (formerly Novopay)",
+    name: "Account Growth and Forecasting Platform",
+    company: "Next Quarter",
     points: [
-      "Novopay’s official website for Lending and Retailer Platform.",
-      "Features: Fully responsive website powered by Theme UI",
+      "Developed a growth platform using account planning, sales methodologies, data-driven forecasts, and conversational AI.",
+      "Integrated React.js and Material UI with Salesforce to enhance UI and functionality.",
+      "Collaborated with Salesforce backend and QA teams for feature integration and enhancements.",
+      "Used the Balkan Org Chart library with React.js for customizable organization charts and smooth user interactions.",
     ],
-    skills: ["Next.js", "Theme UI", "Redux", "Appwrite", "Strapi.io CMS"],
+    skills: [
+      "React.js",
+      "Salesforce Integration",
+      "Material UI",
+      "Highcharts",
+      "Balkan Org Chart",
+    ],
   },
   {
     id: "project6",
-    name: "ShopIT - Backend Project",
-    company: "Personal Project",
+    name: "Loan Lending Audit and Application Monitoring Platform",
+    company: "Trustt (formerly Novopay)",
     points: [
-      "A single page e-commerce application where an authenticated user can purchase item from the store.",
-      "Features: User/Admin Authorization, Authentication, JWT, Register, Login, Update, Add Product to Cart.",
+      "Contributed to an internal query management platform used by customer support teams to monitor loan application data.",
+      "Designed and implemented advanced search functionality to enable efficient query-based retrieval beyond Appwrite's native capabilities.",
+      "Built responsive UI components using Next.js and Tailwind CSS and improved operational efficiency through faster data access.",
     ],
-    skills: ["Node.js", "Express.js", "MongoDB", "REST API", "Github"],
+    skills: [
+      "Next.js",
+      "Tailwind CSS",
+      "Appwrite",
+      "Recoil",
+      "Search UX",
+    ],
   },
   {
     id: "project7",
-    name: "Slack Clone",
-    company: "Personal Project",
+    name: "Loan Agent Portal and Lending Website",
+    company: "Trustt (formerly Novopay)",
     points: [
-      "A single page messaging web application",
-      "Sign-in and Authentication using Google Firebase Authentication",
-      "Integrated Firebase Database(Firestore) for storing data",
-      "Create channels, live chat and interact with multiple users at same time.",
+      "Developed a web portal for loan distributor agents to manage leads, borrowers, and commission tracking.",
+      "Built dashboards for loan pipeline and customer information visibility while integrating Strapi and Appwrite backend services.",
+      "Contributed to the lending and retailer website with responsive Next.js components, CMS integration, and improved content workflows.",
     ],
-    skills: ["React.js", "Firebase", "HTML", "CSS", "Javascript"],
+    skills: [
+      "Next.js",
+      "Strapi.io",
+      "Appwrite",
+      "Theme UI",
+      "Budibase",
+    ],
+  },
+  {
+    id: "project8",
+    name: "Nefronix IoT Solutions Website",
+    company: "Freelance / Consulting",
+    points: [
+      "Led the complete redesign and redevelopment of an IoT solutions company website to improve conversions and investor engagement.",
+      "Transformed a single-page website into a structured multi-page product experience with clearer conversion funnels.",
+      "Reworked UX, SEO-focused content, and call-to-action flows including appointment booking.",
+      "Built the site with Next.js and TypeScript and designed a lightweight data handling strategy to fit budget constraints.",
+    ],
+    skills: [
+      "Next.js",
+      "TypeScript",
+      "SEO Optimization",
+      "UX Redesign",
+      "Conversion Strategy",
+    ],
+  },
+  {
+    id: "project9",
+    name: "XystCare Skincare Brand Website",
+    company: "Freelance / Consulting",
+    points: [
+      "Managed a website redesign project focused on improving brand positioning for a skincare company.",
+      "Coordinated across design, marketing, and development teams while guiding UI/UX direction.",
+      "Reviewed marketing content for consistency and worked with Shopify developers to turn business requirements into shipped features.",
+    ],
+    skills: [
+      "Shopify",
+      "Project Leadership",
+      "UX Strategy",
+      "Content Review",
+      "Cross-functional Coordination",
+    ],
   },
 ];
 
@@ -169,8 +221,6 @@ const Projects = () => {
     content_right_about_span: "text-textWhite",
     routeIcons:
       "fixed top-0 left-0 h-screen w-full flex justify-between items-center pl-3 pr-3 md:pl-8 md:pr-8",
-    // content_sasuke:
-    //   "relative w-auto md:h-[100vh] md:absolute md:bottom-2 md:left-14 p-sm pb-0 md:p-md md:pb-0 lg:p-lg lg:pb-0 mt-12",
   };
   // useStates
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
@@ -209,13 +259,12 @@ const Projects = () => {
     const observerOptions = {
       root: null,
       rootMargin: "-80px",
-      threshold: 0.8, // Adjust this threshold as needed
+      threshold: 0.8,
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target) {
-          // Find the work name associated with the section
           const projectName = Object.keys(sectionRefs).find(
             (name) => sectionRefs[name].current === entry.target
           );
@@ -227,15 +276,13 @@ const Projects = () => {
       });
     }, observerOptions);
 
-    // Attach the observer to each section ref
     Object.keys(sectionRefs).forEach((name) => {
       const currentSectionRef = sectionRefs[name].current;
       if (currentSectionRef) {
-        observer.observe(currentSectionRef as Element); // Type assertion here
+        observer.observe(currentSectionRef as Element);
       }
     });
 
-    // Clean up the observer when the component unmounts
     return () => {
       observer.disconnect();
     };
@@ -307,14 +354,10 @@ const Projects = () => {
         >
           <div className={styles.container} onMouseMove={handleMouseMove}>
             <div className="z-[3] w-full">
-              {/* page title */}
               <Title pageNo={"03"} title={"Projects"} />
-              {/* Theme Change */}
             </div>
 
-            {/* content */}
             <div className={styles.content}>
-              {/* left */}
               <div className="h-[90vh] flex items-center flex-[0.8] lg:flex-[0.9]">
                 <div className={styles.content_left}>
                   <p className="text-xs md:text-sm text-primary">{"<title>"}</p>
@@ -322,7 +365,6 @@ const Projects = () => {
                     <p className={styles.content_left_subtitle}>
                       Project Experience
                     </p>
-                    {/* company name */}
                     <div className="flex flex-col gap-2">
                       {projectData.map((project) => (
                         <div
@@ -355,7 +397,6 @@ const Projects = () => {
                   </p>
                 </div>
               </div>
-              {/* right */}
               <div className={styles.content_right}>
                 <p className="text-xs md:text-sm text-primary">
                   {"<projects>"}
@@ -370,6 +411,7 @@ const Projects = () => {
                       <p className="text-base md:text-md text-textWhite font-bold">
                         {project.name}
                       </p>
+                      <p className="text-textWhite">{project.company}</p>
                       <div className="flex flex-col gap-2">
                         {project.points.map((point, i: number) => (
                           <div key={i} className="flex gap-4">
@@ -408,7 +450,6 @@ const Projects = () => {
                 </p>
               </div>
             </div>
-            {/* prev - next icons */}
             <div className={styles.routeIcons}>
               <Image
                 className={
@@ -435,7 +476,6 @@ const Projects = () => {
                 alt={"next"}
               />
             </div>
-            {/* sasuke img & social icons */}
             <Sasuke x={mouseCoordinates.x} y={mouseCoordinates.y} />
             <ContactMe handleModalOpen={handleModalOpen} />
             {openModal ? <EmailModal setOpenModal={setOpenModal} /> : null}

@@ -23,7 +23,11 @@ export default function Home() {
     next: 2,
   };
 
-  const roles = ["Frontend Developer", "Backend Developer", "UI/UX Designer"];
+  const roles = [
+    "Senior Full Stack Developer",
+    "Technical Lead",
+    "Backend Architecture Specialist",
+  ];
   // style decleration
   const styles = {
     loading_container: "flex flex-col min-h-screen justify-center items-center",
@@ -164,8 +168,8 @@ export default function Home() {
                     loop
                   />
                   <p className="text-xs md:text-sm mt-2 md:mt-3">
-                    Weaving digital wonders with code, creativity, and a touch
-                    of magic.
+                    Building scalable enterprise products with strong
+                    architecture, reliable delivery, and thoughtful leadership.
                   </p>
                 </div>
                 <p className="text-xs md:text-sm text-primary">{"</title>"}</p>
@@ -175,17 +179,16 @@ export default function Home() {
                 <p className="text-xs md:text-sm text-primary">{"<about>"}</p>
                 <div className="ml-4 md:ml-6 flex flex-col gap-2 lg:gap-4 text-xs md:text-sm md:max-h-[640px] overflow-y-scroll">
                   <p>
-                    {`Welcome to my digital space, where innovation meets efficiency, and creativity merges with functionality. As a seasoned Full Stack MERN Developer with three years of professional experience, I bring a wealth of expertise to the table, ensuring your projects not only meet but exceed expectations.`}
+                    {`Senior Full Stack Developer and Technical Lead with 4+ years of experience designing and delivering scalable enterprise SaaS products using the MERN stack. I work across system design, backend architecture, multi-tenant platforms, workflow systems, and enterprise integrations.`}
                   </p>
                   <p>
-                    {/* {`<span className={styles.content_right_about_span}>MNC</span>, a{" "}`} */}
-                    {`My journey in the tech realm has been diverse and dynamic, encompassing a spectrum of cutting-edge technologies and methodologies. From harnessing the power of MERN stack to seamlessly integrating CMS solutions, I thrive on crafting bespoke applications tailored to your unique needs.`}
+                    {`I currently lead development for enterprise HR and workforce platforms, managing engineers, conducting technical interviews, mentoring through regular 1:1s, and helping drive architecture, coding standards, and production releases.`}
                   </p>
                   <p>
-                    {`At the core of my philosophy lies a passion for problem-solving and a dedication to exceeding expectations. From architecting robust architectures to fine-tuning database queries, every project is a testament to my commitment to excellence.`}
+                    {`My core strengths are backend design, performance optimization, and scaling applications for large enterprise usage. I have improved system performance through SQL query restructuring, indexing strategies, batching, and production-focused engineering decisions.`}
                   </p>
                   <p>
-                    {`As a leader, I thrive on orchestrating teams towards success, fostering a culture of collaboration and innovation, empowering teams to unleash their full potential and deliver solutions that inspire. Together, let's embark on a journey of digital transformation, where challenges are opportunities and success knows no bounds.  `}
+                    {`I enjoy taking products from architecture to production, solving hard technical problems as systems evolve, and building teams that can ship reliable software with confidence.  `}
                     <span
                       className={
                         styles.content_right_about_span +

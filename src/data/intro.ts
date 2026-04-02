@@ -1,13 +1,13 @@
 export const intro = {
   about: [
     {
-      para: "Well, let's dive into the beginning, shall we? Despite the numerous challenges and failures that life has thrown my way, I stand firm and determined. It all started back in 2013 when I made the decision to pursue Computer Science alongside Physics, Chemistry, and Mathematics. But perhaps we can delve deeper into that story another time, if you're interested.",
+      para: "I am a Senior Full Stack Developer and Technical Lead with 4+ years of experience designing and delivering scalable enterprise SaaS applications using the MERN stack. My work spans system design, multi-tenant architecture, workflow engines, enterprise integrations, and production-grade backend systems.",
     },
     {
-      para: "Fast forward to the present, I have gained experience working for an MNC, a finance company, and a product company. Unfortunately, I recently faced a layoff from my most recent job due to confidential reasons. In that role, I was responsible for creating features for the company's product, which was a dashboard built on the Salesforce platform. To enhance its performance and reliability, we integrated React components.",
+      para: "At Veritas Prime Labs, I lead engineering efforts across enterprise platforms, mentor developers, conduct technical interviews, review merge requests, and manage releases. I enjoy taking products from architecture to production while improving reliability, scalability, and maintainability at every stage.",
     },
     {
-      para: "Apart from my passion for coding and technology, I have a penchant for indulging in web series and movies, particularly those in the Sci-Fi, Action, Thriller, and Adventure genres. I also enjoy playing e-games, badminton, and maintaining a regular workout routine. Just the usual schedule that many of us follow, right? Haha.",
+      para: "My strongest areas are backend architecture, performance optimization, and building systems that scale for large enterprise workforces. I have worked across product, finance, and consulting environments, and I value clean engineering practices, thoughtful leadership, and practical problem solving.",
     },
   ],
 };
