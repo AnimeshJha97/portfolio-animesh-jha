@@ -1,7 +1,7 @@
 "use client";
 import NextIcon from "@/assets/next-arrow.svg";
 import PrevIcon from "@/assets/prev-arrow.svg";
-import Typed from "react-typed";
+import { ReactTyped } from "react-typed";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -25,8 +25,9 @@ export default function Home() {
 
   const roles = [
     "Senior Full Stack Developer",
+    "Mobile App Developer",
     "Technical Lead",
-    "Backend Architecture Specialist",
+    "Backend Architecture Designer",
   ];
   // style decleration
   const styles = {
@@ -161,7 +162,7 @@ export default function Home() {
                   {/* <p className={styles.content_left_subtitle}>
                     Full Stack Web Developer
                   </p> */}
-                  <Typed
+                  <ReactTyped
                     className="text-sm md:text-base lg:text-md font-medium text-textWhite"
                     strings={roles}
                     typeSpeed={160}
