@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import BoxBgLarge from "@/assets/box-bg-large.svg";
 import Input from "./Input";
 import {
@@ -39,6 +39,18 @@ const EmailModal = ({
   const [mailSent, setMailSent] = useState(false);
   const [mailRes, setMailRes] = useState(false);
   const [mailStatus, setMailStatus] = useState(true);
+  const [isProfileReady, setIsProfileReady] = useState(false);
+  const [hasMinLoaderElapsed, setHasMinLoaderElapsed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasMinLoaderElapsed(true);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   const handleSubmit = async () => {
     // Validate fields before submitting
@@ -163,21 +175,34 @@ const EmailModal = ({
           </div>
           {/* social_info */}
           <div className="flex flex-col items-center gap-1 md:gap-2">
-            <Image
-              className="w-28 h-28 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full border-[2px] border-white md:p-2"
-              src={
-                "https://res.cloudinary.com/animesh-jha/image/upload/v1692628621/portfolio/hero_s60hlt.png"
-              }
-              width={2048}
-              height={2048}
-              alt="hero"
-            />
+            <div className="relative flex h-28 w-28 items-center justify-center md:h-40 md:w-40 lg:h-52 lg:w-52">
+              {!isProfileReady || !hasMinLoaderElapsed ? (
+                <div className="absolute inset-0 flex items-center justify-center rounded-full border-[2px] border-white/30 bg-white/5 md:p-2">
+                  <Loading />
+                </div>
+              ) : null}
+              <Image
+                className={`h-28 w-28 rounded-full border-[2px] border-white object-cover transition-opacity duration-300 md:h-40 md:w-40 md:p-2 lg:h-52 lg:w-52 ${
+                  isProfileReady && hasMinLoaderElapsed ? "opacity-100" : "opacity-0"
+                }`}
+                src={
+                  "https://res.cloudinary.com/animesh-jha/image/upload/q_auto/f_auto/v1775430619/portfolio/Animesh_PFP_en_hnxoon.jpg"
+                }
+                width={2048}
+                height={2048}
+                alt="hero"
+                onLoad={() => setIsProfileReady(true)}
+              />
+            </div>
             <p className="text-base md:text-md font-semibold">Animesh Jha</p>
             <p className="text-textLight text-xs md:text-sm">
               {"#fullstack_developer #ui_designer"}
             </p>
             <div className="mt-2 flex gap-8 items-center text-white">
-              <a href="https://wa.me/+918109876429?text=Hello">
+              <a
+                href="https://wa.me/918109876429?text=Hi%20Animesh%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20potential%20opportunity."
+                target="_blank"
+              >
                 <BsWhatsapp className="hover:text-primary text-base md:text-md" />
               </a>
               <a href="https://www.linkedin.com/in/jha-animesh/">

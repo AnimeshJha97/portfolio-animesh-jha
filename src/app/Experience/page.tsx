@@ -1,37 +1,11 @@
 "use client";
-import SasukeBody from "@/assets/sasuke-body.png";
-import SasukeEyes from "@/assets/eyes.png";
-import Linkedin from "@/assets/linkedin-icon.svg";
-import Github from "@/assets/github-icon.svg";
-import Instagram from "@/assets/instagram-icon.svg";
-import NextIcon from "@/assets/next-arrow.svg";
-import PrevIcon from "@/assets/prev-arrow.svg";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { storePage } from "../recoil/atoms/storePage";
-import { useRecoilState } from "recoil";
-import Sasuke from "@/components/Sasuke";
-import Title from "@/components/Title";
+import CodeSection from "@/components/CodeSection";
+import PageShell from "@/components/PageShell";
 import SkillBox from "@/components/SkillBox";
-import EmailModal from "@/components/EmailModal";
-import ContactMe from "@/components/ContactMe";
+import { motion } from "framer-motion";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
-interface SectionRefs {
-  [key: string]: React.RefObject<HTMLDivElement>;
-}
-
-const Experience = () => {
-  // variable decleration
-  let sectionRefs: SectionRefs = {};
-  const router = useRouter();
-  const pageRoute = {
-    prev: 1,
-    current: 2,
-    next: 3,
-  };
-  const workData = [
+const workData = [
     {
       name: "Veritas Prime Labs",
       year: {
@@ -127,68 +101,34 @@ const Experience = () => {
       skills: ["Identity Access", "Operations", "Enterprise Support"],
     },
   ];
-  // style decleration
-  const styles = {
-    loading_container: "flex flex-col min-h-screen justify-center items-center",
-    loading_container_inner:
-      "inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
-    loading_container_inner_span:
-      "!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]",
-    container:
-      "relative flex flex-col ml-6 mr-6 md:ml-0 md:mr-0 min-h-screen justify-center items-center p-sm pt-16 md:p-md lg:p-lg select-none",
-    pageTitle: "absolute top-0 left-0 p-sm md:p-md lg:p-lg",
-    pageTitle_p: "text-textWhite text-base md:text-md font-medium",
-    pageTitle_p_span: "text-textLight",
-    content:
-      "text-textLight flex flex-col gap-2 md:gap-12 md:flex-row justify-between relative z-[2]",
-    content_left: "flex flex-col gap-2 md:gap-4",
-    content_left_title:
-      "text-md md:text-lg lg:text-xxl font-bold text-textWhite",
-    content_left_subtitle:
-      "text-sm md:text-base lg:text-md mb-4 font-medium text-textWhite",
-    content_left_description: "text-xs md:text-sm",
-    content_right:
-      "md:h-[80vh] flex flex-col gap-4 md:flex-[0.95] md:pr-12 md:mt-16 lg:mt-24 md:pb-16",
-    content_right_about:
-      "ml-4 md:ml-6 flex flex-col gap-6 lg:gap-10 text-xs md:text-sm h-full md:overflow-x-hidden md:pb-[160px]",
-    content_right_about_span: "text-textWhite",
-    routeIcons:
-      "fixed top-0 left-0 h-screen w-full flex justify-between items-center pl-3 pr-3 md:pl-8 md:pr-8",
-    // content_sasuke:
-    //   "relative w-auto md:h-[100vh] md:absolute md:bottom-2 md:left-14 p-sm pb-0 md:p-md md:pb-0 lg:p-lg lg:pb-0 mt-12",
-  };
-  // useStates
-  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
-  const [page, setPage] = useRecoilState(storePage);
-  const [motionConfig, setMotionConfig] = useState({
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -200 },
-    transition: { duration: 0.5 },
-  });
-  const [isLoading, setIsLoading] = useState(true);
+
+const getReveal = (index: number) => ({
+  initial: { opacity: 0, x: index % 2 === 0 ? -44 : 44, y: 18 },
+  whileInView: { opacity: 1, x: 0, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.65, ease: "easeOut" },
+});
+
+const Experience = () => {
   const [selectedWork, setSelectedWork] = useState(workData[0].name);
-  const [openModal, setOpenModal] = useState(false);
-
-  useEffect(() => {
-    let config = {
-      initial: { opacity: 0, x: 200 },
-      animate: { opacity: 1, x: 0 },
-      exit: { opacity: 0, x: -200 },
-      transition: { duration: 0.5 },
-    };
-    if (page === pageRoute.next) {
-      config.initial = { opacity: 0, x: -200 };
-      config.animate = { opacity: 1, x: 0 };
-      config.exit = { opacity: 0, x: 200 };
-      config.transition = { duration: 0.5 };
-    }
-    setMotionConfig(config);
-  }, [page, pageRoute.next]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [motionConfig]);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const leadershipStats = useMemo(
+    () => [
+      {
+        label: "Current Role",
+        value: "Senior Full Stack Developer",
+      },
+      {
+        label: "Team Scope",
+        value: "3 Engineers",
+      },
+      {
+        label: "Focus",
+        value: "Enterprise SaaS and multi-tenant systems",
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     const observerOptions = {
@@ -200,9 +140,8 @@ const Experience = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target) {
-          // Find the work name associated with the section
-          const workName = Object.keys(sectionRefs).find(
-            (name) => sectionRefs[name].current === entry.target
+          const workName = Object.keys(sectionRefs.current).find(
+            (name) => sectionRefs.current[name] === entry.target
           );
 
           if (workName) {
@@ -212,32 +151,17 @@ const Experience = () => {
       });
     }, observerOptions);
 
-    // Attach the observer to each section ref
-    Object.keys(sectionRefs).forEach((name) => {
-      const currentSectionRef = sectionRefs[name].current;
+    Object.keys(sectionRefs.current).forEach((name) => {
+      const currentSectionRef = sectionRefs.current[name];
       if (currentSectionRef) {
-        observer.observe(currentSectionRef as Element); // Type assertion here
+        observer.observe(currentSectionRef);
       }
     });
 
-    // Clean up the observer when the component unmounts
     return () => {
       observer.disconnect();
     };
-  }, [sectionRefs]);
-
-  const handleMouseMove = (event: {
-    clientX: number;
-    clientY: number;
-  }): void => {
-    const { clientX, clientY } = event;
-    setMouseCoordinates({ x: clientX, y: clientY });
-  };
-
-  workData.forEach((work) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    sectionRefs[work.name] = useRef<HTMLDivElement>(null);
-  });
+  }, []);
 
   const handleWorkClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -246,190 +170,225 @@ const Experience = () => {
     e.preventDefault();
     setSelectedWork(workName);
 
-    const selectedSection = sectionRefs[workName];
+    const selectedSection = sectionRefs.current[workName];
 
-    if (selectedSection && selectedSection.current) {
-      selectedSection.current.scrollIntoView({
+    if (selectedSection) {
+      selectedSection.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
   };
 
-  function handlePrevClick(): void {
-    setPage(pageRoute.current);
-    router.push("/");
-  }
-
-  function handleNextClick(): void {
-    setPage(pageRoute.current);
-    router.push("/Projects");
-  }
-
-  const handleModalOpen = () => {
-    setOpenModal((current) => {
-      console.log("model set to ", !current);
-      return !current;
-    });
-  };
-
   return (
-    <main>
-      {isLoading ? (
-        <div className={styles.loading_container}>
-          <div className={styles.loading_container_inner} role="status">
-            <span className={styles.loading_container_inner_span}>
-              Loading...
-            </span>
+    <PageShell
+      pageNo="02"
+      title="Experience"
+      currentPage={2}
+      prevPage={1}
+      nextPage={3}
+      prevHref="/"
+      nextHref="/Projects"
+      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-6 pb-16 pt-24 duration-300 md:px-[108px] md:pt-28 lg:px-[132px] lg:pb-10 xl:pl-[220px]"
+      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-10 text-textLight"
+      mobileMenuContent={(closeMenu) => (
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+              Jump To Company
+            </p>
+            <p className="text-xs leading-6 text-textLight">
+              Open a company directly and jump to its section.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            {workData.map((work) => (
+              <button
+                key={work.name}
+                type="button"
+                className={
+                  selectedWork === work.name
+                    ? "rounded-[18px] border border-primary/35 bg-primary/10 px-4 py-3 text-left"
+                    : "rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-left"
+                }
+                onClick={(e) => {
+                  handleWorkClick(
+                    e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+                    work.name
+                  );
+                  closeMenu();
+                }}
+              >
+                <p className="text-xs font-medium text-textWhite sm:text-sm">
+                  {work.name}
+                </p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-textLight">
+                  {work.year.from} - {work.year.to}
+                </p>
+              </button>
+            ))}
           </div>
         </div>
-      ) : (
-        <motion.div
-          initial={motionConfig.initial}
-          animate={motionConfig.animate}
-          exit={motionConfig.exit}
-          transition={motionConfig.transition}
-        >
-          <div
-            className="duration-300 relative flex flex-col ml-6 mr-6 md:ml-0 md:mr-0 min-h-screen overflow-y-scroll justify-center items-center p-sm pt-16 md:p-md lg:p-lg select-none"
-            onMouseMove={handleMouseMove}
-          >
-            <div className="z-[3] w-full">
-              {/* page title */}
-              <Title pageNo={"02"} title={"Experience"} />
-            </div>
-
-            {/* content */}
-            <div className="text-textLight flex flex-col mt-12 md:mt-0 gap-16 md:flex-row md:items-center justify-between relative z-[2]">
-              {/* left */}
-              <div className="h-[90vh] flex items-center flex-[0.8] lg:flex-[0.9]">
-                <div className="flex flex-col flex-[0.8] lg-flex-[0.7] gap-4">
-                  <p className="text-xs md:text-sm text-primary">{"<title>"}</p>
-                  <div className="ml-4 md:ml-6">
-                    <p className={styles.content_left_subtitle}>
-                      Work Experience
-                    </p>
-                    {/* company name */}
-                    <div className="flex flex-col gap-2">
-                      {workData.map((work) => (
-                        <div
-                          key={work.name}
-                          className="flex gap-4 items-center justify-normal group cursor-pointer max-w-[400px]"
-                          onClick={(e) => handleWorkClick(e, work.name)}
-                        >
-                          <div
-                            className={
-                              selectedWork === work.name
-                                ? "h-[1px] duration-300 w-8 md:w-12 bg-textWhite"
-                                : "h-[1px] w-6 md:w-6 duration-300 group-hover:w-12 group-hover:bg-textWhite bg-textLight"
-                            }
-                          />
-                          <p
-                            className={
-                              selectedWork === work.name
-                                ? "text-xs md:text-sm text-textWhite"
-                                : "text-xs md:text-sm group-hover:text-textWhite"
-                            }
-                          >
-                            {work.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs md:text-sm text-primary">
-                    {"</title>"}
-                  </p>
-                </div>
-              </div>
-              {/* right */}
-              <div className={styles.content_right}>
-                <p className="text-xs md:text-sm text-primary">
-                  {"<experience>"}
+      )}
+    >
+      <section className="grid gap-6 lg:grid-cols-[0.96fr_1.12fr] lg:items-start">
+        <div className="grid gap-4 lg:hidden">
+          <div className="overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+            <CodeSection
+              tag="title"
+              className="flex flex-col gap-4"
+              innerClassName="mt-2 flex flex-col gap-4"
+            >
+              <div className="space-y-3">
+                <p className="text-xs font-medium text-textWhite sm:text-sm md:text-base">
+                  Work Experience
                 </p>
+                <p className="text-xs leading-6 text-textLight md:text-sm">
+                  Senior-level product and platform work across enterprise HR,
+                  finance, and consulting environments, with increasing
+                  ownership in architecture and team leadership.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {leadershipStats.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[18px] border border-white/10 bg-black/20 p-4"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                      {item.label}
+                    </p>
+                    <p className="mt-2 text-xs leading-6 text-textWhite">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </CodeSection>
+          </div>
+        </div>
+        <div className="hidden lg:sticky lg:top-24 lg:block lg:h-[calc(100vh-8.5rem)]">
+          <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)] md:p-8 lg:flex lg:h-full lg:flex-col">
+            <CodeSection
+              tag="title"
+              className="flex h-full flex-col gap-6"
+              innerClassName="mt-2 flex min-h-0 flex-1 flex-col gap-6"
+            >
+              <div className="space-y-3">
+                <p className="text-xs font-medium text-textWhite sm:text-sm md:text-base lg:text-md">
+                  Work Experience
+                </p>
+                <p className="text-xs leading-6 text-textLight md:text-sm">
+                  Senior-level product and platform work across enterprise HR,
+                  finance, and consulting environments, with increasing
+                  ownership in architecture and team leadership.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+                {leadershipStats.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[22px] border border-white/10 bg-black/20 p-4"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+                      {item.label}
+                    </p>
+                    <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:auto-rows-max lg:grid-cols-1 lg:content-start lg:overflow-y-auto lg:pr-1">
+                {workData.map((work) => (
+                  <button
+                    key={work.name}
+                    className={
+                      selectedWork === work.name
+                        ? "rounded-[20px] border border-primary/40 bg-primary/12 px-4 py-4 text-left transition-colors duration-300"
+                        : "rounded-[20px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05]"
+                    }
+                    onClick={(e) =>
+                      handleWorkClick(
+                        e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+                        work.name
+                      )
+                    }
+                  >
+                    <p className="text-xs font-medium text-textWhite md:text-sm">
+                      {work.name}
+                    </p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-textLight">
+                      {work.year.from} - {work.year.to}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </CodeSection>
+          </div>
+        </div>
 
-                <div className={styles.content_right_about}>
-                  {workData.map((work, i) => (
-                    <div ref={sectionRefs[work.name]} key={work.name}>
-                      <div className="flex flex-col md:flex-row items-start md:gap-8 gap-1">
-                        {/* duration */}
-                        <div className="flex gap-2 items-center pt-2">
-                          {work.year.from}{" "}
-                          <div className="h-[1px] w-4 bg-textLight" />{" "}
-                          {work.year.to}
-                        </div>
-                        {/* content */}
-                        <div className="flex flex-col gap-2">
-                          {/* company title */}
-                          <div>
-                            <p className="text-sm md:text-md text-textWhite font-bold">
-                              {work.name}
-                            </p>
-                            <p className="text-textWhite">{work.subTitle}</p>
-                          </div>
-                          {/* points */}
-                          <div className="flex flex-col gap-2">
-                            {work.points.map((point, i: number) => (
-                              <div key={i} className="flex gap-4 items-center">
-                                <div className=" w-2 h-2 bg-textLight rounded-full" />
-                                <p className="flex-1">{point}</p>
-                              </div>
-                            ))}
-                          </div>
-                          {/* skills */}
-                          <div className="flex flex-wrap items-center gap-3">
-                            {work.skills.map((skill, i) => (
-                              <SkillBox key={i} keyParam={i} skill={skill} />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      {workData.length - 1 > i && (
-                        <div className="w-full h-[1px] bg-textLight opacity-40 mt-6 lg:mt-10" />
-                      )}
+        <div className="grid gap-6 lg:max-h-[calc(100vh-8.5rem)] lg:overflow-y-auto lg:pr-2">
+          {workData.map((work, i) => (
+            <motion.section
+              key={work.name}
+              {...getReveal(i)}
+              transition={{ ...getReveal(i).transition, delay: i * 0.06 }}
+              ref={(node) => {
+                sectionRefs.current[work.name] = node;
+              }}
+              className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.84),rgba(9,13,24,0.92))] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:p-8"
+            >
+              <CodeSection
+                tag="experience"
+                className="flex flex-col gap-5"
+                innerClassName="mt-2 flex flex-col gap-6"
+              >
+                <div className="grid gap-4 lg:grid-cols-[180px_1fr]">
+                  <div className="pt-1">
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+                      Timeline
+                    </p>
+                    <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                      {work.year.from}
+                      <span className="mx-2 text-textLight">to</span>
+                      {work.year.to}
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-lg font-semibold text-textWhite md:text-xl lg:text-2xl">
+                      {work.name}
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-textLight md:tracking-[0.18em] lg:text-sm lg:tracking-[0.22em]">
+                      {work.subTitle}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid gap-3">
+                  {work.points.map((point, pointIndex: number) => (
+                    <div key={pointIndex} className="flex items-start gap-4">
+                      <div className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-primary" />
+                      <p className="flex-1 text-xs leading-6 text-textLight md:text-sm">
+                        {point}
+                      </p>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs md:text-sm text-primary">
-                  {"</experience>"}
-                </p>
-              </div>
-            </div>
-            {/* prev - next icons */}
-            <div className={styles.routeIcons}>
-              <Image
-                className={
-                  pageRoute.prev !== 0
-                    ? "visible z-[3] cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={PrevIcon}
-                alt={"next"}
-                onClick={() => handlePrevClick()}
-              />
-              <Image
-                className={
-                  pageRoute.next !== 0
-                    ? "visible z-[3] cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={NextIcon}
-                onClick={() => handleNextClick()}
-                alt={"next"}
-              />
-            </div>
-            {/* sasuke img & social icons */}
-            <Sasuke x={mouseCoordinates.x} y={mouseCoordinates.y} />
-            <ContactMe handleModalOpen={handleModalOpen} />
-            {openModal ? <EmailModal setOpenModal={setOpenModal} /> : null}
-          </div>
-        </motion.div>
-      )}
-    </main>
+                <div className="flex flex-wrap gap-3">
+                  {work.skills.map((skill, skillIndex) => (
+                    <SkillBox
+                      key={skillIndex}
+                      keyParam={skillIndex}
+                      skill={skill}
+                    />
+                  ))}
+                </div>
+              </CodeSection>
+            </motion.section>
+          ))}
+        </div>
+      </section>
+    </PageShell>
   );
 };
 

@@ -1,21 +1,9 @@
 "use client";
-import NextIcon from "@/assets/next-arrow.svg";
-import PrevIcon from "@/assets/prev-arrow.svg";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { storePage } from "../recoil/atoms/storePage";
-import { useRecoilState } from "recoil";
-import Sasuke from "@/components/Sasuke";
-import Title from "@/components/Title";
+import CodeSection from "@/components/CodeSection";
+import PageShell from "@/components/PageShell";
 import SkillBox from "@/components/SkillBox";
-import ContactMe from "@/components/ContactMe";
-import EmailModal from "@/components/EmailModal";
-
-interface SectionRefs {
-  [key: string]: React.RefObject<HTMLDivElement>;
-}
+import { motion } from "framer-motion";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const projectData = [
   {
@@ -187,73 +175,33 @@ const projectData = [
   },
 ];
 
+const getReveal = (index: number) => ({
+  initial: { opacity: 0, x: index % 2 === 0 ? -44 : 44, y: 18 },
+  whileInView: { opacity: 1, x: 0, y: 0 },
+  viewport: { once: true, amount: 0.12 },
+  transition: { duration: 0.65, ease: "easeOut" },
+});
+
 const Projects = () => {
-  // variable decleration
-  const router = useRouter();
-  const pageRoute = {
-    prev: 2,
-    current: 3,
-    next: 0,
-  };
-  let sectionRefs: SectionRefs = {};
-
-  // style decleration
-  const styles = {
-    loading_container: "flex flex-col min-h-screen justify-center items-center",
-    loading_container_inner:
-      "inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
-    loading_container_inner_span:
-      "!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]",
-    container:
-      "relative flex flex-col ml-6 mr-6 md:ml-0 md:mr-0 min-h-screen justify-center items-center p-sm pt-16 md:p-md lg:p-lg select-none",
-    content:
-      "text-textLight flex flex-col mt-12 md:mt-0 gap-16 md:flex-row md:items-center justify-between relative z-[2]",
-    content_left: "flex flex-col gap-2 gap-4",
-    content_left_title:
-      "text-md md:text-lg lg:text-xxl font-bold text-textWhite",
-    content_left_subtitle:
-      "text-sm md:text-base lg:text-md mb-4 font-medium text-textWhite",
-    content_left_description: "text-xs md:text-sm",
-    content_right:
-      "md:h-[80vh] flex flex-col gap-4 md:flex-[0.95] md:pr-12 md:mt-16 lg:mt-24 md:pb-16",
-    content_right_about:
-      "ml-6 flex flex-col gap-6 lg:gap-10 text-xs md:text-sm h-full md:overflow-x-hidden md:pb-[360px]",
-    content_right_about_span: "text-textWhite",
-    routeIcons:
-      "fixed top-0 left-0 h-screen w-full flex justify-between items-center pl-3 pr-3 md:pl-8 md:pr-8",
-  };
-  // useStates
-  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
-  const [page, setPage] = useRecoilState(storePage);
-  const [motionConfig, setMotionConfig] = useState({
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -200 },
-    transition: { duration: 0.5 },
-  });
-  const [isLoading, setIsLoading] = useState(true);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const [selectedProject, setSelectedProject] = useState(projectData[0].id);
-  const [openModal, setOpenModal] = useState(false);
-
-  useEffect(() => {
-    let config = {
-      initial: { opacity: 0, x: 200 },
-      animate: { opacity: 1, x: 0 },
-      exit: { opacity: 0, x: -200 },
-      transition: { duration: 0.5 },
-    };
-    if (page === pageRoute.next) {
-      config.initial = { opacity: 0, x: -200 };
-      config.animate = { opacity: 1, x: 0 };
-      config.exit = { opacity: 0, x: 200 };
-      config.transition = { duration: 0.5 };
-    }
-    setMotionConfig(config);
-  }, [page, pageRoute.next]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [motionConfig]);
+  const projectStats = useMemo(
+    () => [
+      {
+        label: "Enterprise Platforms",
+        value: "HR, overtime, calibration, and workforce workflows",
+      },
+      {
+        label: "Product Range",
+        value: "Web apps, mobile apps, dashboards, and consulting sites",
+      },
+      {
+        label: "Delivery Style",
+        value: "Architecture-minded implementation with strong UX clarity",
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     const observerOptions = {
@@ -265,8 +213,8 @@ const Projects = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target) {
-          const projectName = Object.keys(sectionRefs).find(
-            (name) => sectionRefs[name].current === entry.target
+          const projectName = Object.keys(sectionRefs.current).find(
+            (name) => sectionRefs.current[name] === entry.target
           );
 
           if (projectName) {
@@ -276,30 +224,17 @@ const Projects = () => {
       });
     }, observerOptions);
 
-    Object.keys(sectionRefs).forEach((name) => {
-      const currentSectionRef = sectionRefs[name].current;
+    Object.keys(sectionRefs.current).forEach((name) => {
+      const currentSectionRef = sectionRefs.current[name];
       if (currentSectionRef) {
-        observer.observe(currentSectionRef as Element);
+        observer.observe(currentSectionRef);
       }
     });
 
     return () => {
       observer.disconnect();
     };
-  }, [sectionRefs]);
-
-  const handleMouseMove = (event: {
-    clientX: number;
-    clientY: number;
-  }): void => {
-    const { clientX, clientY } = event;
-    setMouseCoordinates({ x: clientX, y: clientY });
-  };
-
-  projectData.forEach((project) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    sectionRefs[project.id] = useRef<HTMLDivElement>(null);
-  });
+  }, []);
 
   const handleProjectClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -308,181 +243,236 @@ const Projects = () => {
     e.preventDefault();
     setSelectedProject(projectId);
 
-    const selectedSection = sectionRefs[projectId];
+    const selectedSection = sectionRefs.current[projectId];
 
-    if (selectedSection && selectedSection.current) {
-      selectedSection.current.scrollIntoView({
+    if (selectedSection) {
+      selectedSection.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
   };
 
-  function handlePrevClick(): void {
-    setPage(pageRoute.current);
-    router.push("/Experience");
-  }
-
-  function handleNextClick(): void {
-    setPage(pageRoute.current);
-    router.push("/Projects");
-  }
-
-  const handleModalOpen = () => {
-    setOpenModal((current) => {
-      console.log("model set to ", !current);
-      return !current;
-    });
-  };
-
   return (
-    <main>
-      {isLoading ? (
-        <div className={styles.loading_container}>
-          <div className={styles.loading_container_inner} role="status">
-            <span className={styles.loading_container_inner_span}>
-              Loading...
-            </span>
+    <PageShell
+      pageNo="03"
+      title="Projects"
+      currentPage={3}
+      prevPage={2}
+      nextPage={4}
+      prevHref="/Experience"
+      nextHref="/Thanks"
+      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-6 pb-16 pt-24 duration-300 md:px-[108px] md:pt-28 lg:px-[132px] lg:pb-10 xl:pl-[220px]"
+      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-10 text-textLight"
+      mobileMenuContent={(closeMenu) => (
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+              Jump To Project
+            </p>
+            <p className="text-xs leading-6 text-textLight">
+              Open a project directly from the menu instead of scanning a long
+              stacked layout.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            {projectData.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                className={
+                  selectedProject === project.id
+                    ? "rounded-[18px] border border-primary/35 bg-primary/10 px-4 py-3 text-left"
+                    : "rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-left"
+                }
+                onClick={(e) => {
+                  handleProjectClick(
+                    e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+                    project.id
+                  );
+                  closeMenu();
+                }}
+              >
+                <p className="text-xs font-medium text-textWhite sm:text-sm">
+                  {project.name}
+                </p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-textLight">
+                  {project.company}
+                </p>
+              </button>
+            ))}
           </div>
         </div>
-      ) : (
-        <motion.div
-          initial={motionConfig.initial}
-          animate={motionConfig.animate}
-          exit={motionConfig.exit}
-          transition={motionConfig.transition}
-        >
-          <div className={styles.container} onMouseMove={handleMouseMove}>
-            <div className="z-[3] w-full">
-              <Title pageNo={"03"} title={"Projects"} />
-            </div>
-
-            <div className={styles.content}>
-              <div className="h-[90vh] flex items-center flex-[0.8] lg:flex-[0.9]">
-                <div className={styles.content_left}>
-                  <p className="text-xs md:text-sm text-primary">{"<title>"}</p>
-                  <div className="ml-6">
-                    <p className={styles.content_left_subtitle}>
-                      Project Experience
-                    </p>
-                    <div className="flex flex-col gap-2">
-                      {projectData.map((project) => (
-                        <div
-                          key={project.id}
-                          className="flex gap-4 items-center justify-normal group cursor-pointer max-w-[400px]"
-                          onClick={(e) => handleProjectClick(e, project.id)}
-                        >
-                          <div
-                            className={
-                              selectedProject === project.id
-                                ? "h-[1px] duration-300 w-12 bg-textWhite"
-                                : "h-[1px] w-6 duration-300 group-hover:w-12 group-hover:bg-textWhite bg-textLight"
-                            }
-                          />
-                          <p
-                            className={
-                              selectedProject === project.id
-                                ? "text-xs md:text-sm text-textWhite"
-                                : "text-xs md:text-sm group-hover:text-textWhite"
-                            }
-                          >
-                            {project.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs md:text-sm text-primary">
-                    {"</title>"}
-                  </p>
-                </div>
-              </div>
-              <div className={styles.content_right}>
-                <p className="text-xs md:text-sm text-primary">
-                  {"<projects>"}
+      )}
+    >
+      <section className="grid gap-6 lg:grid-cols-[0.96fr_1.12fr] lg:items-start">
+        <div className="grid gap-4 lg:hidden">
+          <div className="overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+            <CodeSection
+              tag="title"
+              className="flex flex-col gap-4"
+              innerClassName="mt-2 flex flex-col gap-4"
+            >
+              <div className="space-y-3">
+                <p className="text-xs font-medium text-textWhite sm:text-sm md:text-base">
+                  Project Experience
                 </p>
-                <div className={styles.content_right_about}>
-                  {projectData.map((project, i) => (
-                    <div
-                      ref={sectionRefs[project.id]}
-                      key={project.id}
-                      className="flex flex-col gap-2 rounded-lg mr-2]"
-                    >
-                      <p className="text-base md:text-md text-textWhite font-bold">
-                        {project.name}
+                <p className="text-xs leading-6 text-textLight md:text-sm">
+                  A mix of enterprise platforms, mobile products, dashboards,
+                  and consulting work, each focused on making complex workflows
+                  easier to understand and operate.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {projectStats.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[18px] border border-white/10 bg-black/20 p-4"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                      {item.label}
+                    </p>
+                    <p className="mt-2 text-xs leading-6 text-textWhite">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </CodeSection>
+          </div>
+        </div>
+        <div className="hidden lg:sticky lg:top-24 lg:block lg:h-[calc(100vh-8.5rem)]">
+          <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)] md:p-8 lg:flex lg:h-full lg:flex-col">
+            <CodeSection
+              tag="title"
+              className="flex h-full flex-col gap-6"
+              innerClassName="mt-2 flex min-h-0 flex-1 flex-col gap-6"
+            >
+              <div className="space-y-3">
+                <p className="text-xs font-medium text-textWhite sm:text-sm md:text-base lg:text-md">
+                  Project Experience
+                </p>
+                <p className="text-xs leading-6 text-textLight md:text-sm">
+                  A mix of enterprise platforms, mobile products, dashboards,
+                  and consulting work, each focused on making complex workflows
+                  easier to understand and operate.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+                {projectStats.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[22px] border border-white/10 bg-black/20 p-4"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+                      {item.label}
+                    </p>
+                    <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:auto-rows-max lg:grid-cols-1 lg:content-start lg:overflow-y-auto lg:pr-1">
+                {projectData.map((project) => (
+                  <button
+                    key={project.id}
+                    className={
+                      selectedProject === project.id
+                        ? "rounded-[20px] border border-primary/40 bg-primary/12 px-4 py-4 text-left transition-colors duration-300"
+                        : "rounded-[20px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05]"
+                    }
+                    onClick={(e) =>
+                      handleProjectClick(
+                        e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+                        project.id
+                      )
+                    }
+                  >
+                    <p className="text-xs font-medium text-textWhite md:text-sm">
+                      {project.name}
+                    </p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-textLight">
+                      {project.company}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </CodeSection>
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:max-h-[calc(100vh-8.5rem)] lg:overflow-y-auto lg:pr-2">
+          {projectData.map((project, i) => (
+            <motion.section
+              key={project.id}
+              {...getReveal(i)}
+              transition={{ ...getReveal(i).transition, delay: i * 0.05 }}
+              ref={(node) => {
+                sectionRefs.current[project.id] = node;
+              }}
+              className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.84),rgba(9,13,24,0.92))] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:p-8"
+            >
+              <CodeSection
+                tag="projects"
+                className="flex flex-col gap-5"
+                innerClassName="mt-2 flex flex-col gap-6"
+              >
+                <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-start">
+                  <div>
+                    <p className="text-lg font-semibold text-textWhite md:text-xl lg:text-2xl">
+                      {project.name}
+                    </p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-textLight md:tracking-[0.18em] lg:text-sm lg:tracking-[0.22em]">
+                      {project.company}
+                    </p>
+                  </div>
+                  <div className="hidden rounded-[20px] border border-white/10 bg-white/[0.03] px-4 py-3 text-xs uppercase tracking-[0.22em] text-primary lg:block">
+                    Project
+                  </div>
+                </div>
+                <div className="grid gap-3">
+                  {project.points.map((point, pointIndex: number) => (
+                    <div key={pointIndex} className="flex items-start gap-4">
+                      <div className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-primary" />
+                      <p className="flex-1 text-xs leading-6 text-textLight md:text-sm">
+                        {point}
                       </p>
-                      <p className="text-textWhite">{project.company}</p>
-                      <div className="flex flex-col gap-2">
-                        {project.points.map((point, i: number) => (
-                          <div key={i} className="flex gap-4">
-                            <div className="mt-[10px] w-2 h-2 bg-textLight rounded-full" />
-                            <p className="flex-1">{point}</p>
-                          </div>
-                        ))}
-                      </div>
-                      {project.features && project.features.length > 0 && (
-                        <div className="flex gap-4">
-                          <div className="mt-[10px] w-2 h-2 bg-textLight rounded-full" />
-                          <p className="flex-1">Features:</p>
-                        </div>
-                      )}
-                      <div className="flex flex-col gap-2 ml-6">
-                        {project.features?.map((point, i: number) => (
-                          <div key={i} className="flex gap-4">
-                            <div className="mt-[10px] w-2 h-2 border-textLight border-[1px] rounded-full" />
-                            <p className="flex-1">{point}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex flex-wrap items-center gap-3">
-                        {project.skills.map((skill, i) => (
-                          <SkillBox key={i} keyParam={i} skill={skill} />
-                        ))}
-                      </div>
-                      {projectData.length - 1 > i && (
-                        <div className="w-full h-[1px] bg-textLight opacity-40 mt-6 lg:mt-10" />
-                      )}
                     </div>
                   ))}
                 </div>
-                <p className="text-xs md:text-sm text-primary">
-                  {"</projects>"}
-                </p>
-              </div>
-            </div>
-            <div className={styles.routeIcons}>
-              <Image
-                className={
-                  pageRoute.prev !== 0
-                    ? "visible z-[3] cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={PrevIcon}
-                alt={"next"}
-                onClick={() => handlePrevClick()}
-              />
-              <Image
-                className={
-                  pageRoute.next !== 0
-                    ? "visible z-[3] cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={NextIcon}
-                onClick={() => handleNextClick()}
-                alt={"next"}
-              />
-            </div>
-            <Sasuke x={mouseCoordinates.x} y={mouseCoordinates.y} />
-            <ContactMe handleModalOpen={handleModalOpen} />
-            {openModal ? <EmailModal setOpenModal={setOpenModal} /> : null}
-          </div>
-        </motion.div>
-      )}
-    </main>
+                {project.features && project.features.length > 0 && (
+                  <div className="grid gap-3 md:grid-cols-2">
+                    {project.features.map((point, featureIndex: number) => (
+                      <div key={featureIndex} className="flex items-start gap-4">
+                        <div className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-primary" />
+                        <div>
+                        <p className="text-xs uppercase tracking-[0.24em] text-primary/80">
+                          Feature
+                        </p>
+                        <p className="mt-2 text-xs leading-6 text-textWhite md:text-sm">
+                          {point}
+                        </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="flex flex-wrap gap-3">
+                  {project.skills.map((skill, skillIndex) => (
+                    <SkillBox
+                      key={skillIndex}
+                      keyParam={skillIndex}
+                      skill={skill}
+                    />
+                  ))}
+                </div>
+              </CodeSection>
+            </motion.section>
+          ))}
+        </div>
+      </section>
+    </PageShell>
   );
 };
 

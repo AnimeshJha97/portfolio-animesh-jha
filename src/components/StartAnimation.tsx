@@ -1,41 +1,94 @@
 "use client";
 
+import { storeTheme } from "@/app/recoil/atoms/storeTheme";
+import { themeData } from "@/data/themeData";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const StartAnimation = () => {
-  const [videoPlayed, setVideoPlayed] = useState(false);
+  const activeTheme = useRecoilValue(storeTheme);
+  const activeThemeConfig = themeData[activeTheme];
+  const [isDismissed, setIsDismissed] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [allowSkip, setAllowSkip] = useState(false);
 
   const handleVideoEnd = () => {
-    setVideoPlayed(true);
+    setIsDismissed(true);
+  };
+
+  const handleVideoLoaded = () => {
+    setIsVideoLoaded(true);
+  };
+
+  const handleVideoError = () => {
+    setIsDismissed(true);
   };
 
   useEffect(() => {
-    const video = document.querySelector(".loading-video") as HTMLVideoElement;
+    if (isDismissed) {
+      return;
+    }
 
-    video.addEventListener("ended", handleVideoEnd);
+    const skipTimeout = setTimeout(() => {
+      setAllowSkip(true);
+    }, 3500);
 
     return () => {
-      video.removeEventListener("ended", handleVideoEnd);
+      clearTimeout(skipTimeout);
     };
-  }, []);
+  }, [isDismissed]);
+
+  useEffect(() => {
+    setIsDismissed(false);
+    setIsVideoLoaded(false);
+    setAllowSkip(false);
+  }, [activeTheme]);
+
+  if (isDismissed) {
+    return null;
+  }
 
   return (
-    <div
-      className={`fixed z-[2000] top-0 left-0 w-screen h-screen flex items-center justify-center transition-opacity duration-300 ${
-        videoPlayed ? "hidden opacity-0" : "visible opacity-100"
-      }`}
-    >
+    <div className="fixed z-[2000] top-0 left-0 w-screen h-screen flex items-center justify-center overflow-hidden bg-black">
       <video
+        key={activeTheme}
         autoPlay
         muted
         playsInline
-        className="loading-video object-cover w-full h-full"
+        preload="auto"
+        className="loading-video relative z-[2001] object-cover w-full h-full"
+        poster={activeThemeConfig.intro.poster.src}
+        onEnded={handleVideoEnd}
+        onLoadedData={handleVideoLoaded}
+        onLoadedMetadata={handleVideoLoaded}
+        onCanPlay={handleVideoLoaded}
+        onError={handleVideoError}
       >
-        <source
-          src="https://res.cloudinary.com/animesh-jha/video/upload/v1692903774/portfolio/Aimages_-_seirem_dnhojq.mp4"
-          type="video/mp4"
-        />
+        <source src={activeThemeConfig.intro.videoUrl} type="video/mp4" />
       </video>
+      <div
+        className={`pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.45)_48%,rgba(0,0,0,0.92)_100%)] transition-opacity duration-500 ${
+          isVideoLoaded ? "opacity-100" : "opacity-85"
+        }`}
+      />
+      {!isVideoLoaded ? (
+        <div className="absolute z-[2002] flex flex-col items-center gap-3 px-6 text-center">
+          <p
+            className="text-base md:text-md font-semibold uppercase tracking-[0.3em] text-textWhite"
+            style={{ animation: "sharingan-fade 2s ease-in-out forwards" }}
+          >
+            {activeThemeConfig.intro.title}
+          </p>
+        </div>
+      ) : null}
+      {allowSkip ? (
+        <button
+          className="absolute bottom-8 right-8 z-[2003] rounded-full border border-white/60 px-4 py-2 text-xs uppercase tracking-[0.3em] text-textWhite transition-colors duration-300 hover:bg-white hover:text-black"
+          onClick={() => setIsDismissed(true)}
+        >
+          Skip Intro
+        </button>
+      ) : null}
     </div>
   );
 };

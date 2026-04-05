@@ -22,8 +22,8 @@ export default function RootLayout({
         <div className="hidden md:block w-screen h-screen absolute top-0 left-0 overflow-hidden">
           <Particle />
         </div>
-        <StartAnimation />
         <GlobalRecoilRoot>
+          <StartAnimation />
           {children}
           <BackgroundAudio />
         </GlobalRecoilRoot>

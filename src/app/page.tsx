@@ -1,242 +1,288 @@
 "use client";
-import NextIcon from "@/assets/next-arrow.svg";
-import PrevIcon from "@/assets/prev-arrow.svg";
+import CodeSection from "@/components/CodeSection";
+import PageShell from "@/components/PageShell";
+import { intro } from "@/data/intro";
+import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { useRecoilState } from "recoil";
-import { storePage } from "./recoil/atoms/storePage";
-import Title from "@/components/Title";
-import Sasuke from "@/components/Sasuke";
-import ContactMe from "@/components/ContactMe";
-import EmailModal from "@/components/EmailModal";
-// import sound from ;
+const roles = [
+  "Senior Full Stack Developer",
+  "Mobile App Developer",
+  "Technical Lead",
+  "Backend Architecture Designer",
+];
+
+const focusAreas = [
+  {
+    label: "Current Role",
+    value: "Leading enterprise HR and workforce products at Veritas Prime Labs",
+  },
+  {
+    label: "Primary Strength",
+    value: "Backend architecture, performance tuning, and scalable SaaS design",
+  },
+  {
+    label: "Operating Style",
+    value: "Ship with clarity, mentor with intent, and design for long-term maintainability",
+  },
+];
+
+const highlights = [
+  {
+    title: "Enterprise Scale",
+    value: "100K+",
+    description:
+      "Experience optimizing systems built for large employee and manager workflows.",
+  },
+  {
+    title: "Leadership",
+    value: "3 Engineers",
+    description:
+      "Actively leading, mentoring, reviewing, and guiding shipping decisions.",
+  },
+  {
+    title: "Architecture",
+    value: "Multi-tenant",
+    description:
+      "Designing products that isolate tenants, workflows, and enterprise integrations cleanly.",
+  },
+];
+
+const corePrinciples = [
+  "Build systems that stay readable as teams, tenants, and workflows grow in complexity.",
+  "Treat performance as product quality, not an afterthought added near release.",
+  "Use technical leadership to create clarity, stronger decisions, and calmer delivery.",
+];
+
+const collaborationSummary = [
+  {
+    label: "Currently Building",
+    value:
+      "Enterprise HR, workflow, and workforce products with strong backend ownership and release responsibility.",
+  },
+  {
+    label: "Best At",
+    value:
+      "Taking products from architecture to production while improving reliability, performance, and maintainability.",
+  },
+];
+
+const reveal = {
+  initial: { opacity: 0, y: 48 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.7, ease: "easeOut" },
+};
+
 export default function Home() {
-  // variable decleration
-  const router = useRouter();
-  const pageRoute = {
-    prev: 0,
-    current: 1,
-    next: 2,
-  };
-
-  const roles = [
-    "Senior Full Stack Developer",
-    "Mobile App Developer",
-    "Technical Lead",
-    "Backend Architecture Designer",
-  ];
-  // style decleration
-  const styles = {
-    loading_container: "flex flex-col min-h-screen justify-center items-center",
-    loading_container_inner:
-      "inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
-    loading_container_inner_span:
-      "!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]",
-    container:
-      "duration-300 relative flex flex-col ml-6 mr-6 md:ml-0 md:mr-0 min-h-screen overflow-y-scroll justify-center items-center p-sm pt-16 md:p-md lg:p-lg select-none",
-    pageTitle: "absolute top-0 left-0 p-sm md:p-md lg:p-lg",
-    pageTitle_p: "text-textWhite text-base md:text-md font-medium",
-    pageTitle_p_span: "text-textLight",
-    content:
-      "text-textLight flex flex-col gap-2 md:gap-12 md:flex-row md:items-center justify-between relative z-[2]",
-    content_left: "flex flex-col flex-[0.8] lg-flex-[0.7] gap-2 md:gap-4",
-    content_left_title:
-      "text-md md:text-lg lg:text-xxl font-bold text-textWhite",
-    content_left_subtitle:
-      "text-sm md:text-base lg:text-md mb-4 font-medium text-textWhite",
-    content_left_description: "text-xs md:text-sm mt-3",
-    content_right: "flex flex-col gap-2 md:gap-4 md:flex-[0.95] lg:flex-[0.6]",
-    content_right_about:
-      "ml-6 flex flex-col gap-2 lg:gap-4 text-xs md:text-sm md:max-h-[640px] overflow-y-scroll",
-    content_right_about_span: "text-textWhite",
-    routeIcons:
-      "fixed top-0 left-0 h-screen w-full flex justify-between items-center pl-3 pr-3 md:pl-8 md:pr-8",
-    content_sasuke:
-      "relative w-auto md:absolute md:bottom-2 md:left-14 p-sm pb-0 md:p-md md:pb-0 lg:p-lg lg:pb-0 mt-12 z-10",
-  };
-  // useStates
-  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
-  const [page, setPage] = useRecoilState(storePage);
-  const [motionConfig, setMotionConfig] = useState({
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -200 },
-    transition: { duration: 0.5 },
-  });
-  const [isLoading, setIsLoading] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
-
-  useEffect(() => {
-    let config = {
-      initial: { opacity: 0, x: 200 },
-      animate: { opacity: 1, x: 0 },
-      exit: { opacity: 0, x: -200 },
-      transition: { duration: 0.5 },
-    };
-    if (page === pageRoute.prev) {
-      config.initial = { opacity: 0, x: 200 };
-      config.animate = { opacity: 1, x: 0 };
-      config.exit = { opacity: 0, x: -200 };
-      config.transition = { duration: 0.5 };
-    } else if (page === pageRoute.next) {
-      config.initial = { opacity: 0, x: -200 };
-      config.animate = { opacity: 1, x: 0 };
-      config.exit = { opacity: 0, x: 200 };
-      config.transition = { duration: 0.5 };
-    }
-    setMotionConfig(config);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    return;
-  }, [page]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [motionConfig]);
-
-  const handleMouseMove = (event: {
-    clientX: number;
-    clientY: number;
-  }): void => {
-    const { clientX, clientY } = event;
-    setMouseCoordinates({ x: clientX, y: clientY });
-  };
-
-  function handlePrevClick(): void {
-    setPage(pageRoute.current);
-    router.push("/");
-  }
-
-  function handleNextClick(): void {
-    setPage(pageRoute.current);
-    router.push("/Experience");
-  }
-
-  const handleModalOpen = () => {
-    setOpenModal((current) => {
-      console.log("model set to ", !current);
-      return !current;
-    });
-  };
-
   return (
-    <main>
-      {isLoading ? (
-        <div className="flex flex-col min-h-screen justify-center items-center">
-          <div
-            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
+    <PageShell
+      pageNo="01"
+      title="Intro"
+      currentPage={1}
+      prevPage={0}
+      nextPage={2}
+      nextHref="/Experience"
+      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-6 pb-16 pt-24 duration-300 md:px-[108px] md:pt-28 lg:px-[132px] lg:pb-20 xl:pl-[320px]"
+      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-10 text-textLight"
+    >
+      <motion.section
+        {...reveal}
+        className="grid items-stretch gap-6 xl:grid-cols-[1.32fr_0.88fr]"
+      >
+        <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(135deg,rgba(12,23,42,0.9),rgba(16,27,48,0.82),rgba(31,41,69,0.68))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(207,173,233,0.14),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(148,163,184,0.12),transparent_30%)]" />
+          <CodeSection
+            tag="title"
+            className="relative flex h-full flex-col gap-6 p-6 md:p-8 lg:p-10"
+            innerClassName="mt-2 flex flex-col gap-6"
           >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
+            <div className="space-y-4">
+              <p className="text-[12px] uppercase tracking-[0.4em] text-primary/80">
+                Character-first portfolio
+              </p>
+              <div className="space-y-2">
+                <h1 className="text-[1.7rem] font-semibold leading-none text-textWhite sm:text-[2.2rem] md:text-[3.2rem] lg:text-[4.5rem]">
+                  Animesh Jha
+                </h1>
+                <ReactTyped
+                  className="block min-h-[28px] text-xs font-medium text-textWhite sm:min-h-[32px] sm:text-sm md:min-h-[36px] md:text-base lg:text-[1.1rem]"
+                  strings={roles}
+                  typeSpeed={100}
+                  backSpeed={40}
+                  loop
+                />
+              </div>
+              <p className="max-w-2xl text-xs leading-6 text-textLight md:text-sm">
+                Building enterprise products with strong backend architecture,
+                thoughtful leadership, and a cinematic interface that reveals
+                itself as you explore.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {["MERN Stack", "System Design", "Workflow Engines", "Tech Leadership"].map(
+                (item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] text-primary sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]"
+                  >
+                    {item}
+                  </span>
+                )
+              )}
+            </div>
+
+            <div className="grid gap-4 pt-2 md:grid-cols-3">
+              {highlights.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[22px] border border-white/10 bg-black/20 p-4 backdrop-blur-sm"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-textLight/80">
+                    {item.title}
+                  </p>
+                  <p className="mt-3 text-base font-semibold text-textWhite sm:text-xl md:text-2xl">
+                    {item.value}
+                  </p>
+                  <p className="mt-2 text-[11px] leading-5 text-textLight md:text-xs">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </CodeSection>
         </div>
-      ) : (
-        <motion.div
-          initial={motionConfig.initial}
-          animate={motionConfig.animate}
-          exit={motionConfig.exit}
-          transition={motionConfig.transition}
-        >
-          <div
-            className="duration-300 relative flex flex-col ml-6 mr-6 md:ml-0 md:mr-0 min-h-screen overflow-y-scroll justify-center items-center p-sm pt-16 md:p-md lg:p-lg select-none"
-            onMouseMove={handleMouseMove}
+
+        <div className="grid gap-6">
+          <motion.div
+            {...reveal}
+            transition={{ ...reveal.transition, delay: 0.1 }}
+            className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.88),rgba(17,25,40,0.8))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
           >
-            <div className="z-[3] w-full">
-              {/* page title */}
-              <Title pageNo={"01"} title={"Intro"} />
-            </div>
-            {/* content */}
-            <div className="text-textLight flex flex-col mt-12 md:mt-0 gap-16 md:flex-row md:items-center justify-between relative z-[2]">
-              {/* left */}
-              <div className="flex flex-col flex-[0.8] lg-flex-[0.7] gap-4">
-                <p className="text-xs md:text-sm text-primary">{"<title>"}</p>
-                <div className="ml-4 md:ml-6">
-                  <p className="text-md md:text-lg lg:text-xxl mb-1 md:mb-0 font-bold text-textWhite">
-                    Animesh Jha
+            <CodeSection
+              tag="about"
+              className="flex h-full flex-col gap-4"
+              innerClassName="mt-2 flex flex-col gap-4"
+            >
+              {intro.about.slice(0, 2).map((item) => (
+                <p key={item.para} className="text-xs leading-6 md:text-sm">
+                  {item.para}
+                </p>
+              ))}
+            </CodeSection>
+          </motion.div>
+
+          <motion.div
+            {...reveal}
+            transition={{ ...reveal.transition, delay: 0.18 }}
+            className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(20,28,48,0.9),rgba(11,17,31,0.88))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
+          >
+            <CodeSection
+              tag="focus"
+              className="flex h-full flex-col gap-4"
+              innerClassName="mt-2 flex flex-col gap-4"
+            >
+              {focusAreas.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[20px] border border-white/8 bg-white/[0.03] p-4"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                    {item.label}
                   </p>
-                  {/* <p className={styles.content_left_subtitle}>
-                    Full Stack Web Developer
-                  </p> */}
-                  <ReactTyped
-                    className="text-sm md:text-base lg:text-md font-medium text-textWhite"
-                    strings={roles}
-                    typeSpeed={160}
-                    loop
-                  />
-                  <p className="text-xs md:text-sm mt-2 md:mt-3">
-                    Building scalable enterprise products with strong
-                    architecture, reliable delivery, and thoughtful leadership.
-                  </p>
-                </div>
-                <p className="text-xs md:text-sm text-primary">{"</title>"}</p>
-              </div>
-              {/* right */}
-              <div className="flex flex-col gap-4 md:flex-[0.95] lg:flex-[0.65]">
-                <p className="text-xs md:text-sm text-primary">{"<about>"}</p>
-                <div className="ml-4 md:ml-6 flex flex-col gap-2 lg:gap-4 text-xs md:text-sm md:max-h-[640px] overflow-y-scroll">
-                  <p>
-                    {`Senior Full Stack Developer and Technical Lead with 4+ years of experience designing and delivering scalable enterprise SaaS products using the MERN stack. I work across system design, backend architecture, multi-tenant platforms, workflow systems, and enterprise integrations.`}
-                  </p>
-                  <p>
-                    {`I currently lead development for enterprise HR and workforce platforms, managing engineers, conducting technical interviews, mentoring through regular 1:1s, and helping drive architecture, coding standards, and production releases.`}
-                  </p>
-                  <p>
-                    {`My core strengths are backend design, performance optimization, and scaling applications for large enterprise usage. I have improved system performance through SQL query restructuring, indexing strategies, batching, and production-focused engineering decisions.`}
-                  </p>
-                  <p>
-                    {`I enjoy taking products from architecture to production, solving hard technical problems as systems evolve, and building teams that can ship reliable software with confidence.  `}
-                    <span
-                      className={
-                        styles.content_right_about_span +
-                        " font-semibold text-base"
-                      }
-                    >
-                      {":)"}
-                    </span>
+                  <p className="mt-2 text-xs leading-6 text-textWhite md:text-sm">
+                    {item.value}
                   </p>
                 </div>
-                <p className="text-xs md:text-sm text-primary">{"</about>"}</p>
-              </div>
-            </div>
-            {/* prev - next icons */}
-            <div className="fixed top-0 left-0 h-screen w-full flex justify-between items-center pl-3 pr-3 md:pl-8 md:pr-8">
-              <Image
-                className={
-                  pageRoute.prev !== 0
-                    ? " z-[3] visible cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={PrevIcon}
-                alt={"next"}
-                onClick={() => handlePrevClick()}
-              />
-              <Image
-                className={
-                  pageRoute.next !== 0
-                    ? "visible z-[3] cursor-pointer hover:w-9 hover:h-9 w-8 h-8 rounded-full overflow-hidden duration-300"
-                    : "invisible"
-                }
-                width={100}
-                height={100}
-                src={NextIcon}
-                onClick={() => handleNextClick()}
-                alt={"next"}
-              />
-            </div>
-            {/* sasuke img & social icons */}
-            <Sasuke x={mouseCoordinates.x} y={mouseCoordinates.y} />
-            <ContactMe handleModalOpen={handleModalOpen} />
-            {openModal ? <EmailModal setOpenModal={setOpenModal} /> : null}
+              ))}
+            </CodeSection>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        {...reveal}
+        transition={{ ...reveal.transition, delay: 0.05 }}
+        className="grid gap-6 xl:grid-cols-[0.96fr_1.14fr]"
+      >
+        <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,17,30,0.92),rgba(12,23,42,0.78))] p-6 md:p-8">
+          <CodeSection
+            tag="chapter"
+            className="flex h-full flex-col gap-4"
+            innerClassName="mt-2 flex flex-col gap-4"
+          >
+            <p className="text-xs leading-6 md:text-sm">
+              I work best where systems, product thinking, and execution all
+              have to move together. That usually means backend-heavy products
+              with real operational complexity, high visibility, and no room
+              for fragile architecture.
+            </p>
+            <p className="text-xs leading-6 md:text-sm">
+              Across engineering roles, I have consistently gravitated toward
+              the parts of the product that need structure: architecture,
+              performance, release confidence, mentoring, and the details that
+              help teams ship with less friction.
+            </p>
+          </CodeSection>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {corePrinciples.map((note, index) => (
+            <motion.div
+              key={note}
+              {...reveal}
+              transition={{ ...reveal.transition, delay: 0.1 + index * 0.08 }}
+              className="overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(22,27,47,0.85),rgba(10,15,26,0.92))] p-6"
+            >
+              <p className="text-[11px] uppercase tracking-[0.28em] text-primary/75">
+                Core Principle 0{index + 1}
+              </p>
+              <p className="mt-4 text-xs leading-6 text-textWhite md:text-sm">
+                {note}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        {...reveal}
+        transition={{ ...reveal.transition, delay: 0.08 }}
+        className="overflow-hidden rounded-[34px] border border-white/10 bg-[linear-gradient(135deg,rgba(12,23,42,0.82),rgba(18,24,44,0.76),rgba(8,12,20,0.92))] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.35)] md:p-8"
+      >
+        <CodeSection
+          tag="next"
+          className="flex flex-col gap-5"
+          innerClassName="mt-2 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]"
+        >
+          <div className="space-y-4">
+            <h2 className="text-base font-semibold text-textWhite sm:text-xl md:text-2xl">
+              Built for products that need both engineering depth and ownership.
+            </h2>
+            <p className="max-w-2xl text-xs leading-6 text-textLight md:text-sm">
+              My experience is strongest in teams that need someone to think
+              beyond feature delivery, whether that means platform design,
+              production stability, mentoring, or improving how the team ships.
+            </p>
           </div>
-        </motion.div>
-      )}
-    </main>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {collaborationSummary.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-[24px] border border-white/10 bg-black/20 p-5"
+              >
+                <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
+                  {item.label}
+                </p>
+                <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </CodeSection>
+      </motion.section>
+    </PageShell>
   );
 }

@@ -1,57 +1,47 @@
 "use client";
 
 import { storeSound } from "@/app/recoil/atoms/storeSound";
-import React, { useState, useRef, useEffect } from "react";
-import { useRecoilState } from "recoil";
-const audioData = [
-  {
-    name: "Sasuke",
-    url: "https://res.cloudinary.com/animesh-jha/video/upload/v1692112832/portfolio/sasuke-theme_bae4pv.mp3",
-  },
-  {
-    name: "Ryuk",
-    url: "https://res.cloudinary.com/animesh-jha/video/upload/v1692126614/portfolio/ryuk-theme_h6einh.mp3",
-  },
-  {
-    name: "L",
-    url: "https://res.cloudinary.com/animesh-jha/video/upload/v1692126614/portfolio/l-theme_mmy1c9.mp3",
-  },
-];
+import { storeTheme } from "@/app/recoil/atoms/storeTheme";
+import { themeData } from "@/data/themeData";
+import React, { useEffect, useRef } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
 const BackgroundAudio = () => {
   const [isPlaying, setIsPlaying] = useRecoilState(storeSound);
-  let audioRef = useRef<HTMLAudioElement | null>(null);
+  const activeTheme = useRecoilValue(storeTheme);
+  const activeThemeConfig = themeData[activeTheme];
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (audioRef && audioRef.current) {
+    if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.volume = 0.2;
-        audioRef.current.play();
-      } else audioRef.current.pause();
+        audioRef.current.volume = activeThemeConfig.soundtrack.volume;
+        audioRef.current.play().catch(() => setIsPlaying(false));
+      } else {
+        audioRef.current.pause();
+      }
     }
-  }, [isPlaying]);
+  }, [activeThemeConfig.soundtrack.volume, isPlaying, setIsPlaying]);
 
-  // useEffect(() => {
-  //   if (audioRef && audioRef.current) {
-  //     audioRef.current.volume = 0.2;
-  //     audioRef.current.play();
-  //   }
-  // }, [isPlaying]);
-
-  const handlePlay = () => {
-    console.log("handlePlay");
-
-    if (!isPlaying) {
-      setIsPlaying(true);
-      if (audioRef && audioRef.current) {
-        audioRef.current.volume = 0.2;
-        audioRef.current.play();
-      } else setIsPlaying(false);
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load();
+      if (isPlaying) {
+        audioRef.current.volume = activeThemeConfig.soundtrack.volume;
+        audioRef.current.play().catch(() => setIsPlaying(false));
+      }
     }
-  };
+  }, [
+    activeTheme,
+    activeThemeConfig.soundtrack.url,
+    activeThemeConfig.soundtrack.volume,
+    isPlaying,
+    setIsPlaying,
+  ]);
 
   return (
-    <audio ref={audioRef} autoPlay={true} preload="auto" loop={true}>
-      <source src={audioData[0].url} type="audio/mpeg" />
+    <audio ref={audioRef} preload="auto" loop>
+      <source src={activeThemeConfig.soundtrack.url} type="audio/mpeg" />
     </audio>
   );
 };

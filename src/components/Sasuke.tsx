@@ -1,14 +1,17 @@
 "use client";
-import SasukeBody from "@/assets/sasuke-body.png";
-import SasukeEyes from "@/assets/eyes.png";
+import { storeTheme } from "@/app/recoil/atoms/storeTheme";
+import { themeData } from "@/data/themeData";
 import Linkedin from "@/assets/linkedin-icon.svg";
-import Github from "@/assets/github-icon.svg";
 import Instagram from "@/assets/instagram-icon.svg";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { BsWhatsapp } from "react-icons/bs";
+import { useRecoilValue } from "recoil";
 
 const Sasuke = ({ x, y }: { x: number; y: number }) => {
+  const activeTheme = useRecoilValue(storeTheme);
+  const activeThemeConfig = themeData[activeTheme];
   const [eyeballsPosition, setEyeballsPosition] = useState({ left: 0, top: 0 });
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const Sasuke = ({ x, y }: { x: number; y: number }) => {
         const deltaY = y - centerY;
         const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
 
-        const maxOffset = 3; // Adjust this value for the maximum eyeball offset
+        const maxOffset = activeThemeConfig.character.maxOffset;
         const offsetX = Math.cos((angle * Math.PI) / 180) * maxOffset;
         const offsetY = Math.sin((angle * Math.PI) / 180) * maxOffset;
 
@@ -32,72 +35,77 @@ const Sasuke = ({ x, y }: { x: number; y: number }) => {
     };
 
     calculateEyeballsPosition();
-  }, [x, y]);
+  }, [activeThemeConfig.character.maxOffset, x, y]);
 
   const eyeballsStyle = {
     transform: `translate(${eyeballsPosition.left}px, ${
-      eyeballsPosition.top - 3
+      eyeballsPosition.top + activeThemeConfig.character.offsetY
     }px)`,
   };
   return (
-    <div className="relative w-auto md:absolute md:bottom-2 md:left-14 p-sm pb-0 md:p-md md:pb-0 lg:p-lg lg:pb-0 mt-12 z-[99]">
-      <div className="relative z-[99]">
+    <div className="pointer-events-none relative z-[120] mt-12 w-fit p-0 mx-auto lg:fixed lg:bottom-6 lg:left-10 lg:mt-0 lg:mx-0 xl:left-14">
+      <div className="pointer-events-auto relative scale-[0.9] opacity-90 transition-transform duration-300 lg:scale-100 lg:opacity-100">
         <div>
           <Link
             href="https://www.linkedin.com/in/jha-animesh/"
-            className="absolute top-14 left-[-48px] cursor-pointer z-[99]"
+            target="_blank"
+            className="absolute left-[-30px] top-14 z-[99] cursor-pointer sm:left-[-36px] sm:top-15 lg:left-[-44px] lg:top-14"
           >
             <Image
-              className=""
               src={Linkedin}
-              alt={"ln"}
+              alt="LinkedIn"
               width={36}
               height={36}
+              className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9"
             />
           </Link>
           <Link
-            href="https://github.com/AnimeshJha97"
-            className="absolute top-[-48px] left-11 cursor-pointer z-[99]"
+            href="https://wa.me/918109876429?text=Hi%20Animesh%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20potential%20opportunity."
+            target="_blank"
+            className="absolute left-1/2 top-[-34px] z-[99] -translate-x-1/2 cursor-pointer text-white sm:top-[-38px] lg:left-11 lg:top-[-46px] lg:translate-x-0"
           >
-            <Image
-              className=""
-              src={Github}
-              alt={"ln"}
-              width={36}
-              height={36}
-            />
+            <BsWhatsapp className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
           </Link>
           <Link
             href="https://instagram.com/__the_undead_cowboy__"
-            className="absolute top-14 right-[-48px] cursor-pointer z-[99]"
+            target="_blank"
+            className="absolute right-[-30px] top-14 z-[99] cursor-pointer sm:right-[-36px] sm:top-15 lg:right-[-44px] lg:top-14"
           >
             <Image
-              className=""
               src={Instagram}
-              alt={"ln"}
+              alt="Instagram"
               width={36}
               height={36}
+              className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9"
             />
           </Link>
         </div>
         <div>
           <Image
-            className="absolute top-[57px] left-[30px] z-10"
+            className="absolute z-10"
             id="eye-left"
-            style={eyeballsStyle}
-            width={28}
-            height={28}
-            src={SasukeEyes}
-            alt="Sasuke"
+            style={{
+              ...eyeballsStyle,
+              top: activeThemeConfig.character.leftEye.top,
+              left: activeThemeConfig.character.leftEye.left,
+            }}
+            width={activeThemeConfig.character.leftEye.width}
+            height={activeThemeConfig.character.leftEye.height}
+            src={activeThemeConfig.character.eyes}
+            alt={activeThemeConfig.character.alt}
           />
           <Image
-            className="absolute top-[60px] left-[67px] z-10"
+            className="absolute z-10"
             id="eye-right"
-            style={eyeballsStyle}
-            width={28}
-            height={28}
-            src={SasukeEyes}
-            alt="Sasuke"
+            style={{
+              ...eyeballsStyle,
+              top: activeThemeConfig.character.rightEye.top,
+              left: activeThemeConfig.character.rightEye.left,
+            }}
+            width={activeThemeConfig.character.rightEye.width}
+            height={activeThemeConfig.character.rightEye.height}
+            src={activeThemeConfig.character.eyes}
+            alt={activeThemeConfig.character.alt}
           />
         </div>
         <Image
@@ -105,8 +113,8 @@ const Sasuke = ({ x, y }: { x: number; y: number }) => {
           id="eyes-container"
           width={120}
           height={120}
-          src={SasukeBody}
-          alt="Sasuke"
+          src={activeThemeConfig.character.body}
+          alt={activeThemeConfig.character.alt}
         />
       </div>
     </div>
