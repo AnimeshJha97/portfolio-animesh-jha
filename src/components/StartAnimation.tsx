@@ -11,6 +11,7 @@ const StartAnimation = () => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [allowSkip, setAllowSkip] = useState(false);
+  const [showIntroText, setShowIntroText] = useState(true);
 
   const handleVideoEnd = () => {
     setIsDismissed(true);
@@ -25,23 +26,25 @@ const StartAnimation = () => {
   };
 
   useEffect(() => {
-    if (isDismissed) {
-      return;
-    }
+    const introTextTimeout = setTimeout(() => {
+      setShowIntroText(false);
+    }, 1800);
 
     const skipTimeout = setTimeout(() => {
       setAllowSkip(true);
     }, 3500);
 
     return () => {
+      clearTimeout(introTextTimeout);
       clearTimeout(skipTimeout);
     };
-  }, [isDismissed]);
+  }, [activeTheme]);
 
   useEffect(() => {
     setIsDismissed(false);
     setIsVideoLoaded(false);
     setAllowSkip(false);
+    setShowIntroText(true);
   }, [activeTheme]);
 
   if (isDismissed) {
@@ -56,8 +59,7 @@ const StartAnimation = () => {
         muted
         playsInline
         preload="auto"
-        className="loading-video relative z-[2001] object-cover w-full h-full"
-        poster={activeThemeConfig.intro.poster.src}
+        className="loading-video relative z-[2001] h-full w-full object-cover"
         onEnded={handleVideoEnd}
         onLoadedData={handleVideoLoaded}
         onLoadedMetadata={handleVideoLoaded}
@@ -71,7 +73,7 @@ const StartAnimation = () => {
           isVideoLoaded ? "opacity-100" : "opacity-85"
         }`}
       />
-      {!isVideoLoaded ? (
+      {showIntroText ? (
         <div className="absolute z-[2002] flex flex-col items-center gap-3 px-6 text-center">
           <p
             className="text-base md:text-md font-semibold uppercase tracking-[0.3em] text-textWhite"
