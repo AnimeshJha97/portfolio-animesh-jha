@@ -1,7 +1,7 @@
 export const intro = {
   about: [
     {
-      para: "I am a Senior Full Stack Developer and Technical Lead with 4+ years of experience designing and delivering scalable enterprise SaaS applications using the MERN stack. My work spans system design, multi-tenant architecture, workflow engines, enterprise integrations, and production-grade backend systems.",
+      para: "I am a Senior Full Stack Developer and Full Stack + AI Product Engineer with 5 years of experience designing and delivering scalable SaaS platforms, backend APIs, multi-tenant systems, and AI-powered products using React, Next.js, Node.js, TypeScript, MongoDB, and SQL.",
     },
     {
       para: "At Veritas Prime Labs, I lead engineering efforts across enterprise platforms, mentor developers, conduct technical interviews, review merge requests, and manage releases. I enjoy taking products from architecture to production while improving reliability, scalability, and maintainability at every stage.",

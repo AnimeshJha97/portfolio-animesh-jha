@@ -3,23 +3,44 @@ import CodeSection from "@/components/CodeSection";
 import PageShell from "@/components/PageShell";
 import { intro } from "@/data/intro";
 import { motion } from "framer-motion";
-import { ReactTyped } from "react-typed";
+import { FiDownload, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
-const roles = [
-  "Senior Full Stack Developer",
-  "Mobile App Developer",
-  "Technical Lead",
-  "Backend Architecture Designer",
+const roleTitle = "Senior Full Stack Developer | Full Stack + AI Product Engineer";
+
+const heroCtas = [
+  {
+    label: "Download Resume",
+    href: "/Animesh-Jha-Resume.pdf",
+    icon: FiDownload,
+    download: true,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/animeshjha",
+    icon: FiGithub,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/jha-animesh/",
+    icon: FiLinkedin,
+  },
+  {
+    label: "Email",
+    href: "mailto:connectwithme.animesh.jha@gmail.com",
+    icon: FiMail,
+  },
 ];
 
 const focusAreas = [
   {
     label: "Current Role",
-    value: "Leading enterprise HR and workforce products at Veritas Prime Labs",
+    value:
+      "Leading enterprise SaaS delivery at Veritas Prime Labs and building AI-powered products through Arkion Labs",
   },
   {
     label: "Primary Strength",
-    value: "Backend architecture, performance tuning, and scalable SaaS design",
+    value:
+      "SaaS platforms, backend APIs, multi-tenant systems, and AI product engineering",
   },
   {
     label: "Operating Style",
@@ -29,22 +50,24 @@ const focusAreas = [
 
 const highlights = [
   {
-    title: "Enterprise Scale",
+    title: "Employee Platform",
     value: "100K+",
-    description:
-      "Experience optimizing systems built for large employee and manager workflows.",
+    description: "Employee data platform experience across enterprise workflows.",
   },
   {
-    title: "Leadership",
+    title: "Managers Supported",
+    value: "30K+",
+    description: "Manager workflows supported through scalable enterprise systems.",
+  },
+  {
+    title: "Tenant Scale",
+    value: "1K+",
+    description: "Users supported per tenant with clean data and workflow isolation.",
+  },
+  {
+    title: "Mentorship",
     value: "3 Engineers",
-    description:
-      "Actively leading, mentoring, reviewing, and guiding shipping decisions.",
-  },
-  {
-    title: "Architecture",
-    value: "Multi-tenant",
-    description:
-      "Designing products that isolate tenants, workflows, and enterprise integrations cleanly.",
+    description: "Engineers mentored through reviews, releases, and delivery decisions.",
   },
 ];
 
@@ -90,8 +113,8 @@ export default function Home() {
         {...reveal}
         className="grid items-stretch gap-6 xl:grid-cols-[1.32fr_0.88fr]"
       >
-        <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(135deg,rgba(12,23,42,0.9),rgba(16,27,48,0.82),rgba(31,41,69,0.68))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(207,173,233,0.14),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(148,163,184,0.12),transparent_30%)]" />
+        <div className="theme-hero-surface relative overflow-hidden rounded-[30px] border shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+          <div className="theme-overlay-glow absolute inset-0" />
           <CodeSection
             tag="title"
             className="relative flex h-full flex-col gap-6 p-6 md:p-8 lg:p-10"
@@ -105,27 +128,45 @@ export default function Home() {
                 <h1 className="text-[1.7rem] font-semibold leading-none text-textWhite sm:text-[2.2rem] md:text-[3.2rem] lg:text-[4.5rem]">
                   Animesh Jha
                 </h1>
-                <ReactTyped
-                  className="block min-h-[28px] text-xs font-medium text-textWhite sm:min-h-[32px] sm:text-sm md:min-h-[36px] md:text-base lg:text-[1.1rem]"
-                  strings={roles}
-                  typeSpeed={100}
-                  backSpeed={40}
-                  loop
-                />
+                <h2 className="max-w-3xl text-sm font-medium leading-6 text-textWhite sm:text-base md:text-lg lg:text-[1.35rem]">
+                  {roleTitle}
+                </h2>
               </div>
               <p className="max-w-2xl text-xs leading-6 text-textLight md:text-sm">
-                Building enterprise products with strong backend architecture,
-                thoughtful leadership, and a cinematic interface that reveals
-                itself as you explore.
+                I build scalable SaaS platforms, backend APIs, multi-tenant
+                systems, and AI-powered products using React, Next.js, Node.js,
+                TypeScript, MongoDB, and SQL. Most recently, I led enterprise
+                SaaS delivery at Veritas Prime Labs and now build AI-powered
+                products through Arkion Labs.
               </p>
             </div>
 
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {heroCtas.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                    download={item.download}
+                    className="theme-chip inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold text-textWhite transition duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-primary"
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                    <span>{item.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+
             <div className="flex flex-wrap gap-3">
-              {["MERN Stack", "System Design", "Workflow Engines", "Tech Leadership"].map(
+              {["SaaS Platforms", "Backend APIs", "AI Products", "Multi-tenant Systems"].map(
                 (item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] text-primary sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]"
+                    className="theme-chip rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] text-primary sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]"
                   >
                     {item}
                   </span>
@@ -133,11 +174,11 @@ export default function Home() {
               )}
             </div>
 
-            <div className="grid gap-4 pt-2 md:grid-cols-3">
+            <div className="grid gap-4 pt-2 sm:grid-cols-2 xl:grid-cols-4">
               {highlights.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[22px] border border-white/10 bg-black/20 p-4 backdrop-blur-sm"
+                  className="theme-dark-panel rounded-[22px] border p-4 backdrop-blur-sm"
                 >
                   <p className="text-[11px] uppercase tracking-[0.28em] text-textLight/80">
                     {item.title}
@@ -158,7 +199,7 @@ export default function Home() {
           <motion.div
             {...reveal}
             transition={{ ...reveal.transition, delay: 0.1 }}
-            className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.88),rgba(17,25,40,0.8))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
+            className="theme-card-surface overflow-hidden rounded-[30px] border p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
           >
             <CodeSection
               tag="about"
@@ -176,7 +217,7 @@ export default function Home() {
           <motion.div
             {...reveal}
             transition={{ ...reveal.transition, delay: 0.18 }}
-            className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(20,28,48,0.9),rgba(11,17,31,0.88))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
+            className="theme-card-alt overflow-hidden rounded-[30px] border p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
           >
             <CodeSection
               tag="focus"
@@ -186,7 +227,7 @@ export default function Home() {
               {focusAreas.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-[20px] border border-white/8 bg-white/[0.03] p-4"
+                  className="theme-subtle-panel rounded-[20px] border p-4"
                 >
                   <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
                     {item.label}
@@ -206,7 +247,7 @@ export default function Home() {
         transition={{ ...reveal.transition, delay: 0.05 }}
         className="grid gap-6 xl:grid-cols-[0.96fr_1.14fr]"
       >
-        <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,17,30,0.92),rgba(12,23,42,0.78))] p-6 md:p-8">
+        <div className="theme-band-surface overflow-hidden rounded-[30px] border p-6 md:p-8">
           <CodeSection
             tag="chapter"
             className="flex h-full flex-col gap-4"
@@ -233,7 +274,7 @@ export default function Home() {
               key={note}
               {...reveal}
               transition={{ ...reveal.transition, delay: 0.1 + index * 0.08 }}
-              className="overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(22,27,47,0.85),rgba(10,15,26,0.92))] p-6"
+              className="theme-card-alt overflow-hidden rounded-[28px] border p-6"
             >
               <p className="text-[11px] uppercase tracking-[0.28em] text-primary/75">
                 Core Principle 0{index + 1}
@@ -249,7 +290,7 @@ export default function Home() {
       <motion.section
         {...reveal}
         transition={{ ...reveal.transition, delay: 0.08 }}
-        className="overflow-hidden rounded-[34px] border border-white/10 bg-[linear-gradient(135deg,rgba(12,23,42,0.82),rgba(18,24,44,0.76),rgba(8,12,20,0.92))] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.35)] md:p-8"
+        className="theme-panel-highlight overflow-hidden rounded-[34px] border p-6 shadow-[0_28px_90px_rgba(0,0,0,0.35)] md:p-8"
       >
         <CodeSection
           tag="next"
@@ -270,7 +311,7 @@ export default function Home() {
             {collaborationSummary.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[24px] border border-white/10 bg-black/20 p-5"
+                className="theme-dark-panel rounded-[24px] border p-5"
               >
                 <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
                   {item.label}
