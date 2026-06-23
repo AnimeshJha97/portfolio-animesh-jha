@@ -133,11 +133,11 @@ const PageShell = ({
           <div
             className={
               containerClassName ??
-              "relative flex min-h-screen select-none flex-col items-center justify-center px-6 pb-8 pt-16 duration-300 md:px-[108px] lg:px-[128px] lg:pb-10 xl:pl-[260px]"
+              "relative flex min-h-screen select-none flex-col items-center justify-center px-4 pb-8 pt-20 duration-300 sm:px-6 md:px-8 lg:px-12 lg:pb-10 xl:px-16 xl:pl-[240px]"
             }
             onMouseMove={handleMouseMove}
           >
-            <div className="fixed left-0 top-0 z-[150] w-full border-b border-white/10 bg-[linear-gradient(180deg,rgba(8,13,24,0.95),rgba(12,23,42,0.82))] backdrop-blur-md">
+            <div className="theme-header-surface fixed left-0 top-0 z-[150] w-full border-b backdrop-blur-md">
               <div className="mx-auto w-full max-w-[1700px]">
                 <Title
                   pageNo={pageNo}
@@ -152,7 +152,7 @@ const PageShell = ({
             <div
               className={
                 contentClassName ??
-                "relative z-[2] mt-12 flex flex-col gap-16 text-textLight md:mt-0 md:flex-row md:items-center md:justify-between"
+                "relative z-[2] mt-8 flex flex-col gap-12 text-textLight lg:mt-2 lg:flex-row lg:items-center lg:justify-between"
               }
             >
               {children}
@@ -171,11 +171,11 @@ const PageShell = ({
                 aria-label="Close menu overlay"
               />
               <aside
-                className={`absolute left-0 top-0 flex h-screen w-[84vw] max-w-[360px] flex-col border-r border-white/10 bg-[linear-gradient(180deg,rgba(8,13,24,0.97),rgba(12,23,42,0.94))] px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,0.5)] transition-transform duration-300 ${
+                className={`theme-sidebar-surface absolute left-0 top-0 flex h-screen w-[84vw] max-w-[360px] flex-col border-r px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,0.5)] transition-transform duration-300 ${
                   isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
                 }`}
               >
-                <div className="space-y-2 border-b border-white/10 pb-5">
+                <div className="space-y-2 border-b border-[var(--theme-border)] pb-5">
                   <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
                     Navigate
                   </p>
@@ -191,8 +191,8 @@ const PageShell = ({
                         type="button"
                         className={
                           item.page === currentPage
-                            ? "rounded-[18px] border border-primary/35 bg-primary/10 px-4 py-3 text-left text-sm font-medium text-textWhite"
-                            : "rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-sm font-medium text-textLight"
+                            ? "theme-chip rounded-[18px] border px-4 py-3 text-left text-sm font-medium text-textWhite"
+                            : "theme-subtle-panel rounded-[18px] border px-4 py-3 text-left text-sm font-medium text-textLight"
                         }
                         onClick={() => handleNavigate(item.href)}
                       >
@@ -202,7 +202,7 @@ const PageShell = ({
                   </div>
                 </div>
                 {mobileMenuContent ? (
-                  <div className="mt-5 min-h-0 flex-1 overflow-y-auto pr-1 lg:hidden">
+                  <div className="mt-5 min-h-0 flex-1 overflow-y-auto pr-1 xl:hidden">
                     {mobileMenuContent(closeMobileMenu)}
                   </div>
                 ) : null}

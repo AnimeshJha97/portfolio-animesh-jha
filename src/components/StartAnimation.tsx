@@ -26,6 +26,11 @@ const StartAnimation = () => {
   };
 
   useEffect(() => {
+    if (!activeThemeConfig.intro.videoUrl) {
+      setIsDismissed(true);
+      return;
+    }
+
     const introTextTimeout = setTimeout(() => {
       setShowIntroText(false);
     }, 1800);
@@ -38,7 +43,7 @@ const StartAnimation = () => {
       clearTimeout(introTextTimeout);
       clearTimeout(skipTimeout);
     };
-  }, [activeTheme]);
+  }, [activeTheme, activeThemeConfig.intro.videoUrl]);
 
   useEffect(() => {
     setIsDismissed(false);

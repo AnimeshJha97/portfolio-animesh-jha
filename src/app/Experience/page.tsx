@@ -10,7 +10,7 @@ const workData = [
       name: "Veritas Prime Labs",
       year: {
         from: "10/2023",
-        to: "Present",
+        to: "03/2026",
       },
       subTitle: "Senior Full Stack Developer",
       points: [
@@ -115,7 +115,7 @@ const Experience = () => {
   const leadershipStats = useMemo(
     () => [
       {
-        label: "Current Role",
+        label: "Most Recent Role",
         value: "Senior Full Stack Developer",
       },
       {
@@ -189,8 +189,8 @@ const Experience = () => {
       nextPage={3}
       prevHref="/"
       nextHref="/Projects"
-      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-6 pb-16 pt-24 duration-300 md:px-[108px] md:pt-28 lg:px-[132px] lg:pb-10 xl:pl-[220px]"
-      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-10 text-textLight"
+      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-4 pb-16 pt-24 duration-300 sm:px-6 md:px-8 md:pt-28 lg:px-12 lg:pb-10 xl:px-16 xl:pl-[220px]"
+      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-8 text-textLight md:gap-10"
       mobileMenuContent={(closeMenu) => (
         <div className="space-y-5">
           <div className="space-y-2">
@@ -208,8 +208,8 @@ const Experience = () => {
                 type="button"
                 className={
                   selectedWork === work.name
-                    ? "rounded-[18px] border border-primary/35 bg-primary/10 px-4 py-3 text-left"
-                    : "rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-left"
+                    ? "theme-chip rounded-[18px] border px-4 py-3 text-left"
+                    : "theme-subtle-panel rounded-[18px] border px-4 py-3 text-left"
                 }
                 onClick={(e) => {
                   handleWorkClick(
@@ -231,9 +231,9 @@ const Experience = () => {
         </div>
       )}
     >
-      <section className="grid gap-6 lg:grid-cols-[0.96fr_1.12fr] lg:items-start">
-        <div className="grid gap-4 lg:hidden">
-          <div className="overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+      <section className="grid gap-6 xl:grid-cols-[0.96fr_1.12fr] xl:items-start">
+        <div className="grid gap-4 xl:hidden">
+          <div className="theme-card-surface overflow-hidden rounded-[26px] border p-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
             <CodeSection
               tag="title"
               className="flex flex-col gap-4"
@@ -245,20 +245,20 @@ const Experience = () => {
                 </p>
                 <p className="text-xs leading-6 text-textLight md:text-sm">
                   Senior-level product and platform work across enterprise HR,
-                  finance, and consulting environments, with increasing
-                  ownership in architecture and team leadership.
+                  finance, and consulting environments, with clear ownership in
+                  architecture, delivery, and technical leadership.
                 </p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
                 {leadershipStats.map((item) => (
                   <div
                     key={item.label}
-                    className="rounded-[18px] border border-white/10 bg-black/20 p-4"
+                    className="theme-dark-panel rounded-[18px] border p-4"
                   >
                     <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
                       {item.label}
                     </p>
-                    <p className="mt-2 text-xs leading-6 text-textWhite">
+                    <p className="mt-2 text-sm leading-7 text-textWhite">
                       {item.value}
                     </p>
                   </div>
@@ -267,8 +267,8 @@ const Experience = () => {
             </CodeSection>
           </div>
         </div>
-        <div className="hidden lg:sticky lg:top-24 lg:block lg:h-[calc(100vh-8.5rem)]">
-          <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.92),rgba(17,25,40,0.82))] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)] md:p-8 lg:flex lg:h-full lg:flex-col">
+        <div className="hidden xl:sticky xl:top-24 xl:block xl:self-start">
+          <div className="theme-card-surface overflow-hidden rounded-[30px] border p-6 shadow-[0_18px_60px_rgba(0,0,0,0.28)] md:p-8 xl:flex xl:flex-col">
             <CodeSection
               tag="title"
               className="flex h-full flex-col gap-6"
@@ -280,33 +280,33 @@ const Experience = () => {
                 </p>
                 <p className="text-xs leading-6 text-textLight md:text-sm">
                   Senior-level product and platform work across enterprise HR,
-                  finance, and consulting environments, with increasing
-                  ownership in architecture and team leadership.
+                  finance, and consulting environments, with clear ownership in
+                  architecture, delivery, and technical leadership.
                 </p>
               </div>
-              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
                 {leadershipStats.map((item) => (
                   <div
                     key={item.label}
-                    className="rounded-[22px] border border-white/10 bg-black/20 p-4"
+                    className="theme-dark-panel rounded-[22px] border p-4"
                   >
                     <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
                       {item.label}
                     </p>
-                    <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                    <p className="mt-3 text-sm leading-7 text-textWhite md:text-base">
                       {item.value}
                     </p>
                   </div>
                 ))}
               </div>
-              <div className="grid gap-3 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:auto-rows-max lg:grid-cols-1 lg:content-start lg:overflow-y-auto lg:pr-1">
+              <div className="grid gap-3 sm:grid-cols-2 xl:min-h-0 xl:flex-1 xl:auto-rows-max xl:grid-cols-1 xl:content-start xl:overflow-y-auto xl:pr-1">
                 {workData.map((work) => (
                   <button
                     key={work.name}
                     className={
                       selectedWork === work.name
-                        ? "rounded-[20px] border border-primary/40 bg-primary/12 px-4 py-4 text-left transition-colors duration-300"
-                        : "rounded-[20px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05]"
+                        ? "theme-chip rounded-[20px] border px-4 py-4 text-left transition-colors duration-300"
+                        : "theme-subtle-panel rounded-[20px] border px-4 py-4 text-left transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05]"
                     }
                     onClick={(e) =>
                       handleWorkClick(
@@ -328,7 +328,7 @@ const Experience = () => {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:max-h-[calc(100vh-8.5rem)] lg:overflow-y-auto lg:pr-2">
+        <div className="grid gap-6 xl:pr-2">
           {workData.map((work, i) => (
             <motion.section
               key={work.name}
@@ -337,7 +337,7 @@ const Experience = () => {
               ref={(node) => {
                 sectionRefs.current[work.name] = node;
               }}
-              className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,rgba(12,23,42,0.84),rgba(9,13,24,0.92))] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:p-8"
+              className="theme-card-strong overflow-hidden rounded-[30px] border p-6 shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:p-8"
             >
               <CodeSection
                 tag="experience"
@@ -368,7 +368,7 @@ const Experience = () => {
                   {work.points.map((point, pointIndex: number) => (
                     <div key={pointIndex} className="flex items-start gap-4">
                       <div className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-primary" />
-                      <p className="flex-1 text-xs leading-6 text-textLight md:text-sm">
+                      <p className="flex-1 text-sm leading-7 text-textLight md:text-base">
                         {point}
                       </p>
                     </div>

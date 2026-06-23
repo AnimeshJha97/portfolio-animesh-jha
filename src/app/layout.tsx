@@ -4,6 +4,7 @@ import GlobalRecoilRoot from "./recoilRoot/GlobalRecoilRoot";
 import Particle from "@/components/Particle";
 import BackgroundAudio from "@/components/BackgroundAudio";
 import StartAnimation from "@/components/StartAnimation";
+import ThemePaletteSync from "@/components/ThemePaletteSync";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
           <Particle />
         </div>
         <GlobalRecoilRoot>
+          <ThemePaletteSync />
           <StartAnimation />
           {children}
           <BackgroundAudio />

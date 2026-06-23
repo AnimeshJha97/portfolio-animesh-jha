@@ -10,7 +10,7 @@ const roleTitle = "Senior Full Stack Developer | Full Stack + AI Product Enginee
 const heroCtas = [
   {
     label: "Download Resume",
-    href: "/Animesh-Jha-Resume.pdf",
+    href: "/Resume_AnimeshJha.pdf",
     icon: FiDownload,
     download: true,
   },
@@ -33,9 +33,9 @@ const heroCtas = [
 
 const focusAreas = [
   {
-    label: "Current Role",
+    label: "Most Recent Role",
     value:
-      "Leading enterprise SaaS delivery at Veritas Prime Labs and building AI-powered products through Arkion Labs",
+      "Senior Full Stack Developer at Veritas Prime Labs, followed by AI product builds through Arkion Labs",
   },
   {
     label: "Primary Strength",
@@ -81,7 +81,7 @@ const collaborationSummary = [
   {
     label: "Currently Building",
     value:
-      "Enterprise HR, workflow, and workforce products with strong backend ownership and release responsibility.",
+      "Founder-led AI products through Arkion Labs, with a focus on product engineering, backend systems, and practical AI workflows.",
   },
   {
     label: "Best At",
@@ -106,12 +106,12 @@ export default function Home() {
       prevPage={0}
       nextPage={2}
       nextHref="/Experience"
-      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-6 pb-16 pt-24 duration-300 md:px-[108px] md:pt-28 lg:px-[132px] lg:pb-20 xl:pl-[320px]"
-      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-10 text-textLight"
+      containerClassName="relative flex min-h-screen select-none flex-col items-center justify-start px-4 pb-16 pt-24 duration-300 sm:px-6 md:px-8 md:pt-28 lg:px-12 lg:pb-20 xl:px-16 xl:pl-[300px]"
+      contentClassName="relative z-[2] mt-6 flex w-full max-w-[1640px] flex-col gap-8 text-textLight md:gap-10"
     >
       <motion.section
         {...reveal}
-        className="grid items-stretch gap-6 xl:grid-cols-[1.32fr_0.88fr]"
+        className="grid items-stretch gap-6 2xl:grid-cols-[1.32fr_0.88fr]"
       >
         <div className="theme-hero-surface relative overflow-hidden rounded-[30px] border shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
           <div className="theme-overlay-glow absolute inset-0" />
@@ -125,23 +125,24 @@ export default function Home() {
                 Character-first portfolio
               </p>
               <div className="space-y-2">
-                <h1 className="text-[1.7rem] font-semibold leading-none text-textWhite sm:text-[2.2rem] md:text-[3.2rem] lg:text-[4.5rem]">
+                <h1 className="text-[1.7rem] font-semibold leading-none text-textWhite sm:text-[2.1rem] md:text-[2.8rem] lg:text-[3.7rem] xl:text-[4.5rem]">
                   Animesh Jha
                 </h1>
-                <h2 className="max-w-3xl text-sm font-medium leading-6 text-textWhite sm:text-base md:text-lg lg:text-[1.35rem]">
+                <h2 className="max-w-3xl text-sm font-medium leading-6 text-textWhite sm:text-base md:text-[1.05rem] lg:text-[1.2rem] xl:text-[1.35rem]">
                   {roleTitle}
                 </h2>
               </div>
               <p className="max-w-2xl text-xs leading-6 text-textLight md:text-sm">
                 I build scalable SaaS platforms, backend APIs, multi-tenant
                 systems, and AI-powered products using React, Next.js, Node.js,
-                TypeScript, MongoDB, and SQL. Most recently, I led enterprise
-                SaaS delivery at Veritas Prime Labs and now build AI-powered
-                products through Arkion Labs.
+                TypeScript, MongoDB, and SQL. My most recent enterprise role
+                was leading SaaS delivery at Veritas Prime Labs, and I now
+                build AI-powered products through Arkion Labs, my independent
+                product studio.
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {heroCtas.map((item) => {
                 const Icon = item.icon;
 
@@ -207,7 +208,7 @@ export default function Home() {
               innerClassName="mt-2 flex flex-col gap-4"
             >
               {intro.about.slice(0, 2).map((item) => (
-                <p key={item.para} className="text-xs leading-6 md:text-sm">
+                <p key={item.para} className="text-sm leading-7 md:text-base">
                   {item.para}
                 </p>
               ))}
@@ -232,7 +233,7 @@ export default function Home() {
                   <p className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
                     {item.label}
                   </p>
-                  <p className="mt-2 text-xs leading-6 text-textWhite md:text-sm">
+                  <p className="mt-2 text-sm leading-7 text-textWhite md:text-base">
                     {item.value}
                   </p>
                 </div>
@@ -245,7 +246,7 @@ export default function Home() {
       <motion.section
         {...reveal}
         transition={{ ...reveal.transition, delay: 0.05 }}
-        className="grid gap-6 xl:grid-cols-[0.96fr_1.14fr]"
+        className="grid gap-6 2xl:grid-cols-[0.96fr_1.14fr]"
       >
         <div className="theme-band-surface overflow-hidden rounded-[30px] border p-6 md:p-8">
           <CodeSection
@@ -253,13 +254,13 @@ export default function Home() {
             className="flex h-full flex-col gap-4"
             innerClassName="mt-2 flex flex-col gap-4"
           >
-            <p className="text-xs leading-6 md:text-sm">
+            <p className="text-sm leading-7 md:text-base">
               I work best where systems, product thinking, and execution all
               have to move together. That usually means backend-heavy products
               with real operational complexity, high visibility, and no room
               for fragile architecture.
             </p>
-            <p className="text-xs leading-6 md:text-sm">
+            <p className="text-sm leading-7 md:text-base">
               Across engineering roles, I have consistently gravitated toward
               the parts of the product that need structure: architecture,
               performance, release confidence, mentoring, and the details that
@@ -279,7 +280,7 @@ export default function Home() {
               <p className="text-[11px] uppercase tracking-[0.28em] text-primary/75">
                 Core Principle 0{index + 1}
               </p>
-              <p className="mt-4 text-xs leading-6 text-textWhite md:text-sm">
+              <p className="mt-4 text-sm leading-7 text-textWhite md:text-base">
                 {note}
               </p>
             </motion.div>
@@ -301,7 +302,7 @@ export default function Home() {
             <h2 className="text-base font-semibold text-textWhite sm:text-xl md:text-2xl">
               Built for products that need both engineering depth and ownership.
             </h2>
-            <p className="max-w-2xl text-xs leading-6 text-textLight md:text-sm">
+            <p className="max-w-2xl text-sm leading-7 text-textLight md:text-base">
               My experience is strongest in teams that need someone to think
               beyond feature delivery, whether that means platform design,
               production stability, mentoring, or improving how the team ships.
@@ -316,7 +317,7 @@ export default function Home() {
                 <p className="text-[11px] uppercase tracking-[0.28em] text-primary/80">
                   {item.label}
                 </p>
-                <p className="mt-3 text-xs leading-6 text-textWhite md:text-sm">
+                <p className="mt-3 text-sm leading-7 text-textWhite md:text-base">
                   {item.value}
                 </p>
               </div>
