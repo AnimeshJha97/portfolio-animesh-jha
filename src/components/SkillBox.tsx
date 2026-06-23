@@ -9,7 +9,7 @@ const SkillBox = ({ keyParam, skill }: boxInterface) => {
   return (
     <div
       key={keyParam}
-      className="p-[4px_8px] md:p-[4px_16px] md:mt-2 bg-primary/30 text-primary rounded-[16px] text-xxs md:text-xs hover:text-bgCol hover:bg-primary duration-500"
+      className="rounded-[16px] bg-primary/30 px-2 py-1 text-xs text-primary duration-500 hover:bg-primary hover:text-bgCol sm:px-3 md:mt-2 md:px-4 md:text-sm"
     >
       <p>{skill}</p>
     </div>

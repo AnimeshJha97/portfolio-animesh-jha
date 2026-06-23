@@ -14,6 +14,11 @@ const BackgroundAudio = () => {
 
   useEffect(() => {
     if (audioRef.current) {
+      if (!activeThemeConfig.soundtrack.url) {
+        audioRef.current.pause();
+        return;
+      }
+
       if (isPlaying) {
         audioRef.current.volume = activeThemeConfig.soundtrack.volume;
         audioRef.current.play().catch(() => setIsPlaying(false));
@@ -21,10 +26,20 @@ const BackgroundAudio = () => {
         audioRef.current.pause();
       }
     }
-  }, [activeThemeConfig.soundtrack.volume, isPlaying, setIsPlaying]);
+  }, [
+    activeThemeConfig.soundtrack.url,
+    activeThemeConfig.soundtrack.volume,
+    isPlaying,
+    setIsPlaying,
+  ]);
 
   useEffect(() => {
     if (audioRef.current) {
+      if (!activeThemeConfig.soundtrack.url) {
+        audioRef.current.pause();
+        return;
+      }
+
       audioRef.current.load();
       if (isPlaying) {
         audioRef.current.volume = activeThemeConfig.soundtrack.volume;

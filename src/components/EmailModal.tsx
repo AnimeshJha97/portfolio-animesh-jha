@@ -91,13 +91,13 @@ const EmailModal = ({
   };
 
   return (
-    <div className="fixed left-0 top-0 z-[1000] h-screen overflow-y-scroll w-screen items-center flex justify-center">
+    <div className="fixed inset-0 z-[1000] overflow-y-auto px-4 py-6 sm:px-6 sm:py-8">
       <div
-        className="absolute w-full h-full bg-[rgba(0,0,0,0.9)]"
+        className="fixed inset-0 bg-[rgba(0,0,0,0.9)]"
         onClick={() => handleCloseModal()}
       />
       {/* content */}
-      <div className="relative w-[90vw] lg:w-[70vw] border-[1px] min-h-[70vh] max-h-[90vh] overflow-y-scroll border-white rounded-lg m-4 bg-[rgba(0,0,0,0.6)]">
+      <div className="relative mx-auto w-full max-w-[1100px] border-[1px] border-white rounded-lg bg-[rgba(0,0,0,0.6)] max-h-[calc(100vh-3rem)] overflow-y-auto">
         {/* content_bg */}
         <Image
           className="absolute h-full w-full opacity-40"
@@ -111,7 +111,7 @@ const EmailModal = ({
           Contact Me
         </p>
         <MdCancel
-          className="duration-300 cursor-pointer fixed top-2 right-2 text-md hover:text-primary text-white"
+          className="duration-300 cursor-pointer absolute right-3 top-3 text-lg hover:text-primary text-white"
           onClick={() => handleCloseModal()}
         />
         <div className="relative z-[1001] w-full p-4 lg:p-8 flex flex-col-reverse lg:flex-row justify-around items-center gap-6 text-white">
