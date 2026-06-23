@@ -205,7 +205,11 @@ const EmailModal = ({
               >
                 <BsWhatsapp className="hover:text-primary text-base md:text-md" />
               </a>
-              <a href="https://www.linkedin.com/in/jha-animesh/">
+              <a
+                href="https://www.linkedin.com/in/animeshjha97/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <BsLinkedin className="hover:text-primary text-base md:text-md" />
               </a>
               <a href="https://instagram.com/__the_undead_cowboy__">

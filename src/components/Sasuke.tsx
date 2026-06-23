@@ -52,7 +52,7 @@ const Sasuke = ({ x, y }: { x: number; y: number }) => {
       <div className="pointer-events-auto relative scale-[0.84] opacity-90 transition-transform duration-300 sm:scale-[0.9] md:scale-[0.86] lg:scale-[0.92] xl:scale-100 xl:opacity-100">
         <div className="relative" style={{ width: stageSize, height: stageSize }}>
           <Link
-            href="https://www.linkedin.com/in/jha-animesh/"
+            href="https://www.linkedin.com/in/animeshjha97/"
             target="_blank"
             className="absolute z-[99] cursor-pointer"
             style={{

@@ -16,17 +16,17 @@ const heroCtas = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/animeshjha",
+    href: "https://github.com/AnimeshJha97",
     icon: FiGithub,
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/jha-animesh/",
+    href: "https://www.linkedin.com/in/animeshjha97/",
     icon: FiLinkedin,
   },
   {
     label: "Email",
-    href: "mailto:connectwithme.animesh.jha@gmail.com",
+    href: "mailto:animeshjha.dev@gmail.com",
     icon: FiMail,
   },
 ];
@@ -66,7 +66,7 @@ const highlights = [
   },
   {
     title: "Mentorship",
-    value: "3 Engineers",
+    value: "5+ Engineers",
     description: "Engineers mentored through reviews, releases, and delivery decisions.",
   },
 ];
