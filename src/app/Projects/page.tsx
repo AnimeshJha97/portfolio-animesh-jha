@@ -32,7 +32,7 @@ const projectData: ProjectCaseStudy[] = [
     name: "P3Kit",
     company: "Arkion Labs",
     companyNote: "Built through Arkion Labs, my independent product studio.",
-    projectType: "AI Product",
+    projectType: "AI Interview Prep Platform",
     problem:
       "Job seekers often know what they want to improve, but they do not have a structured way to convert a resume into focused interview prep, practice plans, and progress tracking.",
     role:
@@ -52,6 +52,12 @@ const projectData: ProjectCaseStudy[] = [
     ],
     currentStatus:
       "Active product build and iteration focused on stronger prep flows and better personalized outputs.",
+    links: [
+      {
+        label: "Live Product",
+        href: "https://p3kit.arkionlabs.in",
+      },
+    ],
     skills: [
       "Next.js",
       "TypeScript",
@@ -67,7 +73,7 @@ const projectData: ProjectCaseStudy[] = [
     name: "Ledeqor",
     company: "Arkion Labs",
     companyNote: "Built through Arkion Labs, my independent product studio.",
-    projectType: "AI Product",
+    projectType: "AI Learning Platform",
     problem:
       "Most career-upgrade platforms focus on passive content consumption instead of project-based learning, progress visibility, and feedback on how well someone is improving.",
     role:
@@ -87,6 +93,12 @@ const projectData: ProjectCaseStudy[] = [
     ],
     currentStatus:
       "In active product development with emphasis on learning structure, progress clarity, and AI-assisted evaluation.",
+    links: [
+      {
+        label: "Live Product",
+        href: "https://ledeqor.arkionlabs.in",
+      },
+    ],
     skills: [
       "Next.js",
       "TypeScript",
@@ -101,7 +113,7 @@ const projectData: ProjectCaseStudy[] = [
     name: "FrontMate",
     company: "Arkion Labs",
     companyNote: "Built through Arkion Labs, my independent product studio.",
-    projectType: "AI Product",
+    projectType: "AI Receptionist Platform",
     problem:
       "Small businesses need round-the-clock first-response support, but traditional receptionist workflows are manual, inconsistent, and difficult to scale across multiple clients.",
     role:
@@ -109,7 +121,7 @@ const projectData: ProjectCaseStudy[] = [
     technicalWork: [
       "Implemented WhatsApp webhook handling, Gemini-powered reply generation, and persistent conversation storage.",
       "Built booking-oriented message flows so businesses can move users from inquiry to structured action.",
-      "Created tenant-aware request handling to support multiple businesses without cross-tenant data leakage.",
+      "Created tenant-aware request handling so multiple businesses could use the system without cross-tenant data leakage.",
     ],
     architecture: [
       "Designed the platform as a multi-tenant AI receptionist system with tenant database isolation and webhook-driven event processing.",
@@ -234,14 +246,14 @@ const projectData: ProjectCaseStudy[] = [
     technicalWork: [
       "Built the site using Next.js and TypeScript with a cleaner multi-page structure and stronger responsive behavior.",
       "Reworked SEO-oriented content structure and call-to-action flows, including appointment-style lead capture.",
-      "Designed a lightweight data-handling approach that matched the client’s budget constraints without sacrificing usability.",
+      "Designed a lightweight data-handling approach that matched the client's budget constraints without sacrificing usability.",
     ],
     architecture: [
       "Moved the site from a single long page to a more structured product narrative with clearer information architecture.",
       "Designed the site around conversion flow, performance, and maintainability instead of purely visual refresh work.",
     ],
     impact: [
-      "Improved the site’s ability to present product value and guide users toward contact actions.",
+      "Improved the site's ability to present product value and guide users toward contact actions.",
       "Created a stronger consulting example of owning both technical execution and business-facing UX outcomes.",
     ],
     skills: [

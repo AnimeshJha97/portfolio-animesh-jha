@@ -120,7 +120,7 @@ export default function ThanksPage() {
               </p>
               <div className="grid gap-3">
                 <Link
-                  href="https://www.linkedin.com/in/jha-animesh/"
+                  href="https://www.linkedin.com/in/animeshjha97/"
                   target="_blank"
                   className="theme-subtle-panel rounded-[20px] border px-4 py-4 text-sm font-medium text-textWhite transition-colors duration-300 hover:border-primary/35 hover:bg-primary/10"
                 >
