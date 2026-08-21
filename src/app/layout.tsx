@@ -1,15 +1,17 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-import GlobalRecoilRoot from "./recoilRoot/GlobalRecoilRoot";
-import Particle from "@/components/Particle";
-import BackgroundAudio from "@/components/BackgroundAudio";
-import StartAnimation from "@/components/StartAnimation";
-import ThemePaletteSync from "@/components/ThemePaletteSync";
-const inter = Inter({ subsets: ["latin"] });
+
+/*
+ * T01 stub shell. The Recoil provider, particle field, background audio,
+ * theme sync, and start animation were removed with the V1 site (decision D1).
+ *
+ * T02 adds the JetBrains Mono font variable.
+ * T04 adds the header, nav drawer, scanlines, and footer.
+ * T13 replaces this metadata with the real per-route set.
+ */
 
 export const metadata = {
-  title: "Animesh's Portfolio",
-  description: "Designer & Developer | FROM INDIA WITH LOVE",
+  title: "Animesh Jha",
+  description: "Rebuild in progress.",
 };
 
 export default function RootLayout({
@@ -19,17 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-bgCol">
-        <div className="hidden md:block w-screen h-screen absolute top-0 left-0 overflow-hidden">
-          <Particle />
-        </div>
-        <GlobalRecoilRoot>
-          <ThemePaletteSync />
-          <StartAnimation />
-          {children}
-          <BackgroundAudio />
-        </GlobalRecoilRoot>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
