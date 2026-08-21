@@ -2,10 +2,12 @@
 
 import { storeTheme } from "@/app/recoil/atoms/storeTheme";
 import { themeData } from "@/data/themeData";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 const StartAnimation = () => {
+  const pathname = usePathname();
   const activeTheme = useRecoilValue(storeTheme);
   const activeThemeConfig = themeData[activeTheme];
   const [isDismissed, setIsDismissed] = useState(false);
@@ -52,7 +54,8 @@ const StartAnimation = () => {
     setShowIntroText(true);
   }, [activeTheme]);
 
-  if (isDismissed) {
+  // /studio has its own splash screen — skip the global theme intro there
+  if (pathname?.startsWith("/studio") || isDismissed) {
     return null;
   }
 
