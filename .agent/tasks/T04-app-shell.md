@@ -1,6 +1,6 @@
 # T04 — App shell: header, nav, footer
 
-**Status:** BLOCKED · **Depends on:** T02, T03 · **Phase:** B
+**Status:** DONE · **Depends on:** T02, T03 · **Phase:** B
 
 ## Goal
 
@@ -80,14 +80,14 @@ from `nav.ts` (T03 put them there) — call sites should not repeat that copy.
 
 ## Acceptance criteria
 
-- [ ] All six routes render with shared chrome and are reachable from the drawer
+- [x] All six routes render with shared chrome and are reachable from the drawer
       and the desktop nav
-- [ ] Active chapter is correct on every route, including `/products/anything`
-- [ ] Drawer closes on scrim click, `✕`, `Escape`, and route change
-- [ ] Footer chapter label matches the route
-- [ ] Header does not render a sound toggle or a version switcher
-- [ ] Layout is a server component; only interactive leaves are `"use client"`
-- [ ] `npx next build` shows 6 statically prerendered routes
+- [x] Active chapter is correct on every route, including `/products/anything`
+- [x] Drawer closes on scrim click, `✕`, `Escape`, and route change
+- [x] Footer chapter label matches the route
+- [x] Header does not render a sound toggle or a version switcher
+- [x] Layout is a server component; only interactive leaves are `"use client"`
+- [x] `npx next build` shows 6 statically prerendered routes
 
 ## Out of scope
 

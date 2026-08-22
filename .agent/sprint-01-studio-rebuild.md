@@ -16,16 +16,16 @@ Statuses: `READY` (deps met, take it) · `BLOCKED` (deps open) · `DOING` · `DO
 | #   | Task                                | Depends on | Status  |
 |-----|-------------------------------------|------------|---------|
 | T01 | Teardown and dependency cleanup     | —          | DONE    |
-| T02 | Design tokens and global styles     | T01        | READY   |
-| T03 | Typed content layer                 | T01        | READY   |
-| T04 | App shell — header, nav, footer     | T02, T03   | BLOCKED |
-| T05 | Splash / intro gate                 | T02, T04   | BLOCKED |
-| T06 | Chapter 01 — Studio (home)          | T04, T03   | BLOCKED |
-| T07 | Chapter 02 — About                  | T04, T03   | BLOCKED |
-| T08 | Chapter 03 — Products + detail      | T04, T03   | BLOCKED |
-| T09 | Chapter 04 — Work                   | T04, T03   | BLOCKED |
-| T10 | Chapter 05 — Services + contact     | T04, T03   | BLOCKED |
-| T11 | Chapter 06 — Thanks                 | T04, T03   | BLOCKED |
+| T02 | Design tokens and global styles     | T01        | DONE    |
+| T03 | Typed content layer                 | T01        | DONE    |
+| T04 | App shell — header, nav, footer     | T02, T03   | DONE    |
+| T05 | Splash / intro gate                 | T02, T04   | READY   |
+| T06 | Chapter 01 — Studio (home)          | T04, T03   | READY   |
+| T07 | Chapter 02 — About                  | T04, T03   | READY   |
+| T08 | Chapter 03 — Products + detail      | T04, T03   | READY   |
+| T09 | Chapter 04 — Work                   | T04, T03   | READY   |
+| T10 | Chapter 05 — Services + contact     | T04, T03   | READY   |
+| T11 | Chapter 06 — Thanks                 | T04, T03   | READY   |
 | T12 | Motion and effects pass             | T06..T11   | BLOCKED |
 | T13 | SEO, metadata, sitemap              | T06..T11   | BLOCKED |
 | T14 | Accessibility and responsive QA     | T12, T13   | BLOCKED |

@@ -1,11 +1,11 @@
 import { SectionClose } from "@/components/ui/SectionClose";
 import { SectionHead } from "@/components/ui/SectionHead";
 
-export default function Home() {
+export default function ServicesPage() {
   return (
     <>
-      <SectionHead chapter="studio" />
-      <SectionClose chapter="studio" />
+      <SectionHead chapter="services" />
+      <SectionClose chapter="services" />
     </>
   );
 }

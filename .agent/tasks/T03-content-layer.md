@@ -1,6 +1,6 @@
 # T03 — Typed content layer
 
-**Status:** BLOCKED · **Depends on:** T01 · **Phase:** A
+**Status:** DONE · **Depends on:** T01 · **Phase:** A
 
 ## Goal
 
@@ -91,13 +91,13 @@ The h2 pair, the three route cards, and the contact link list.
 
 ## Acceptance criteria
 
-- [ ] All nine modules exist and are fully typed; no `any`
-- [ ] Every real string from the archive is present — spot-check the four job
+- [x] All nine modules exist and are fully typed; no `any`
+- [x] Every real string from the archive is present — spot-check the four job
       blurbs, five product `how` arrays, and the six lead-case sections
-- [ ] No `[Placeholder]` text anywhere in `src/content/`
-- [ ] Products carry a unique `slug`; accents and statuses are unions, not hex
-- [ ] `npx tsc --noEmit` passes
-- [ ] Nothing in `src/content/` imports from `react`, `next`, or `tailwind`
+- [x] No `[Placeholder]` text anywhere in `src/content/`
+- [x] Products carry a unique `slug`; accents and statuses are unions, not hex
+- [x] `npx tsc --noEmit` passes
+- [x] Nothing in `src/content/` imports from `react`, `next`, or `tailwind`
 
 ## Out of scope
 

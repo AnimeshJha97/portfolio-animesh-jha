@@ -1,6 +1,6 @@
 # T02 — Design tokens and global styles
 
-**Status:** BLOCKED · **Depends on:** T01 · **Phase:** A
+**Status:** DONE · **Depends on:** T01 · **Phase:** A
 
 ## Goal
 
@@ -84,12 +84,12 @@ chapter 03 are the legitimate case, since they come from content data.
 
 ## Acceptance criteria
 
-- [ ] Every palette value in `reference/design-spec.md` exists as a CSS variable
-- [ ] `tailwind.config.js` contains no leftover anime-site theme values
-- [ ] JetBrains Mono loads via `next/font` and applies to `body`
-- [ ] All five keyframes defined; infinite ones respect reduced motion
-- [ ] A scratch element using `bg-surface border-border text-body` renders correctly
-- [ ] `npx tsc --noEmit` and `npx next build` pass
+- [x] Every palette value in `reference/design-spec.md` exists as a CSS variable
+- [x] `tailwind.config.js` contains no leftover anime-site theme values
+- [x] JetBrains Mono loads via `next/font` and applies to `body`
+- [x] All five keyframes defined; infinite ones respect reduced motion
+- [x] A scratch element using `bg-surface border-border text-body` renders correctly
+- [x] `npx tsc --noEmit` and `npx next build` pass
 
 ## Out of scope
 
